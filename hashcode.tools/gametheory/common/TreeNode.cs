@@ -11,6 +11,7 @@ namespace hashcode.tools.gametheory.common
         public G Game { get; private set; }
         public int Depth { get; private set; }
         public int PlayerId { get; private set; }
+
         private IScoreConverter _converter;
 
         public TreeNode(double[] evaluation, M move, G game, int depth, IScoreConverter converter, int playerId)
@@ -52,11 +53,11 @@ namespace hashcode.tools.gametheory.common
             double diff = converter.convert(scores1, player1Id) * evaluation1Factor - converter.convert(scores2, player2Id) * evaluation2Factor;
             if (diff < 0)
             {
-                return 1;
+                return -1;
             }
             if (diff > 0)
             {
-                return -1;
+                return 1;
             }
             return 0;
         }
