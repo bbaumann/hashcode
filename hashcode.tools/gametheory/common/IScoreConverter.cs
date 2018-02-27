@@ -8,6 +8,6 @@ namespace hashcode.tools.gametheory.common
     * This is particularly useful if you want to consider that the player is trying to maximize only its score, or its score minus the others scores or...
     */
     public interface IScoreConverter {
-        double convert(double[] rawScores, int player);
+        double Convert(double[] rawScores, int player);
     }
 }

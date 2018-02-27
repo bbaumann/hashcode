@@ -12,6 +12,11 @@ namespace hashcode.tools.gametheory.common
         public int Depth { get; private set; }
         public int PlayerId { get; private set; }
 
+        public double GetScore()
+        {
+            return _converter.Convert(this.Evaluation, this.PlayerId);
+        }
+
         private IScoreConverter _converter;
 
         public TreeNode(double[] evaluation, M move, G game, int depth, IScoreConverter converter, int playerId)
@@ -36,35 +41,24 @@ namespace hashcode.tools.gametheory.common
 
         public int CompareTo(TreeNode<M, G> other)
         {
-            return Compare(this.Evaluation, 1.0d, this.PlayerId,
-                other.Evaluation, 1.0d, other.PlayerId, this._converter);
-        }
+            double diff = this.GetScore() - other.GetScore();
 
-
-        public static TreeNode<M, G> GetBest(List<TreeNode<M, G>> moves, int playerId)
-        {
-            moves.Sort();
-            return moves.FirstOrDefault();
-        }
-
-        private static int Compare(double[] scores1, double evaluation1Factor, int player1Id, double[] scores2, double evaluation2Factor, int player2Id,
-                IScoreConverter converter)
-        {
-            double diff = converter.convert(scores1, player1Id) * evaluation1Factor - converter.convert(scores2, player2Id) * evaluation2Factor;
             if (diff < 0)
-            {
                 return -1;
-            }
             if (diff > 0)
-            {
                 return 1;
-            }
             return 0;
         }
 
         public bool IsBetter(TreeNode<M, G> other)
         {
             return this.CompareTo(other) > 0;
+        }
+
+        public static TreeNode<M, G> GetBest(List<TreeNode<M, G>> moves, int playerId)
+        {
+            moves.Sort();
+            return moves.FirstOrDefault();
         }
     }
 }
