@@ -9,10 +9,39 @@ namespace hashcode.march
         // return the score
         int Simulate(State state, Generator generator)
         {
-            for (int i = 0; i < state.stepCount; ++i)
+            Models.Car[] cars = new Models.Car[state.fleetCount];
+ 
+            for (int step = 0; step < state.stepCount; ++step)
             {
-                // generator.GetOrder();
+                List<Models.Ride> toRemove = new List<Models.Ride>();
+
+                 foreach (var ride in state.rides)
+                 {
+                    if (!ride.IsOk())
+                    {
+                        continue;
+                    }
+                    for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
+                    {
+                        if (cars[carIndex].IsAvailable(step))
+                        {
+                            cars[carIndex].DoRide(ride);
+                            toRemove.Add(ride);
+                            break;
+                        }
+                    }
+                }
+                foreach (var ride in toRemove)
+                {
+                    state.rides.Remove(ride);
+                }
             }
+
+            for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
+            {
+                cars[carIndex].DumpRides();
+            }
+
             return 0;
         }
     }
