@@ -32,7 +32,7 @@ namespace hashcode.march.Models
         public int DoRide(Ride r)
         {
             this.MoveTo(r.StartingPoint);
-            if (this.CurrentStep < r.EarliestStart)
+            if (this.CurrentStep <= r.EarliestStart)
             {
                 this.CurrentStep = r.EarliestStart;
             }
@@ -42,5 +42,24 @@ namespace hashcode.march.Models
             RideHistory.Add(r);
             return r.GetPointsAwarded(startStep, finishStep);
         }
+
+        public Tuple<bool, bool> CanDoRide(Ride r)
+        {
+            bool canHavebonus = false;
+            bool canFinishOnTime = false;
+
+            int distanceToStart = this.CurrentCoord.ComputeDistance(r.StartingPoint);
+
+            canFinishOnTime = ((this.CurrentStep + distanceToStart + r.Distance) < r.LatestFinish);
+            canHavebonus = canFinishOnTime && ((this.CurrentStep + distanceToStart) <= r.EarliestStart);
+            
+            return new Tuple<bool, bool>(canFinishOnTime, canHavebonus);
+        }
+
+        public bool IsAvailable(int step)
+        {
+            return this.CurrentStep <= step;
+        }
+        
     }
 }
