@@ -7,16 +7,16 @@ namespace hashcode.march
 {
     class Helper
     {
-        public static void InitResult()
+        public static void InitResult(string entryFile)
         {
-            if (File.Exists(@"result.txt"))
-                File.Delete(@"result.txt");
+            if (File.Exists(entryFile + ".out"))
+                File.Delete(entryFile + ".out");
         }
 
-        public static void ConsoleLog(string inMsg)
+        public static void ConsoleLog(string inMsg, string outputFile)
         {
             //Console.WriteLine(inMsg);
-            File.AppendAllText(@"result.txt", inMsg + Environment.NewLine);
+            File.AppendAllText(outputFile, inMsg + Environment.NewLine);
         }
     }
 }

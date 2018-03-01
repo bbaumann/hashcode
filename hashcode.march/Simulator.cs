@@ -8,7 +8,7 @@ namespace hashcode.march
     class Simulator
     {
         // return the score
-        public int Simulate(State state, IGenerator generator)
+        public int Simulate(State state, IGenerator generator, string outputFile)
         {
             List<Car> cars = new List<Car>(state.fleetCount);
             for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
@@ -23,7 +23,7 @@ namespace hashcode.march
             }
             foreach (var car in cars)
             {
-                Helper.ConsoleLog(car.DumpRides());
+                Helper.ConsoleLog(car.DumpRides(), outputFile);
             }
 
             return 0;
