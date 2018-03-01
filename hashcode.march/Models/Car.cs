@@ -17,9 +17,30 @@ namespace hashcode.march.Models
             this.RideHistory = new List<Ride>();
         }
 
+        public void MoveTo(Coord destination)
+        {
+            int distance = this.CurrentCoord.ComputeDistance(destination);
+            this.CurrentStep += distance;
+            this.CurrentCoord = destination;
+        }
+
+        /// <summary>
+        /// returns points awarded
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
         public int DoRide(Ride r)
         {
-            return 0;
+            this.MoveTo(r.StartingPoint);
+            if (this.CurrentStep < r.EarliestStart)
+            {
+                this.CurrentStep = r.EarliestStart;
+            }
+            int startStep = this.CurrentStep;
+            this.MoveTo(r.FinishPoint);
+            int finishStep = this.CurrentStep;
+            RideHistory.Add(r);
+            return r.GetPointsAwarded(startStep, finishStep);
         }
     }
 }
