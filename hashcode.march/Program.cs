@@ -50,6 +50,9 @@ namespace hashcode.march
                                        Id = rideIndex});
             }
 
+            Generator gen = new Generator();
+            Simulator sim = new Simulator();
+            sim.Simulate(state, gen);
 
             ConsoleLog("Hello World!");
             string dummy = Console.ReadLine();
