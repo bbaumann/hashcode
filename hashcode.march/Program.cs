@@ -29,6 +29,7 @@ namespace hashcode.march
         {
             contentLines = System.IO.File.ReadAllLines(@"./entries.txt");
 
+            Helper.InitResult();
             State state = new State();
 
             string[] inputs = ReadLine().Split(' ');
@@ -52,7 +53,7 @@ namespace hashcode.march
                                        Id = rideIndex});
             }
 
-            Generator gen = new Generator();
+            IGenerator gen = new MostPointGenerator();
             Simulator sim = new Simulator();
             sim.Simulate(state, gen);
 

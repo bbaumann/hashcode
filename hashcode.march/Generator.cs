@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using hashcode.march.Models;
+using System.Linq;
 
 namespace hashcode.march
 {
     interface IGenerator
     {
-        bool CalcOrders(int step, State state, Models.Car[] car);
+        bool CalcOrders(int step, State state, List<Car> cars);
+
+        bool CalcOrders(State state, List<Car> cars);
     }
 
     class Generator : IGenerator
     {
-        public bool CalcOrders(int step, State state, Models.Car[] cars)
+        public bool CalcOrders(int step, State state, List<Car> cars)
         {
             List<Models.Ride> toRemove = new List<Models.Ride>();
 
@@ -21,11 +25,11 @@ namespace hashcode.march
                 {
                     continue;
                 }
-                for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
+                foreach (var car in cars)
                 {
-                    if (cars[carIndex].IsAvailable(step) && cars[carIndex].CanDoRide(ride).Item1)
+                    if (car.IsAvailable(step) && car.CanDoRide(ride).Item1)
                     {
-                        cars[carIndex].DoRide(ride);
+                        car.DoRide(ride);
                         toRemove.Add(ride);
                         break;
                     }
@@ -34,6 +38,56 @@ namespace hashcode.march
             foreach (var ride in toRemove)
             {
                 state.rides.Remove(ride);
+            }
+            return true;
+        }
+
+        public bool CalcOrders(State state, List<Car> cars)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    class MostPointGenerator : IGenerator
+    {
+        public bool CalcOrders(int step, State state, List<Car> cars)
+        {
+           
+            return true;
+        }
+
+        public bool CalcOrders(State state, List<Car> cars)
+        {
+            foreach (var car in cars)
+            {
+                while (!car.ServiceEnded)
+                {
+                    var orderedRides = state.rides.OrderByDescending(r => car.AverageScoreForRide(r));
+                    if (!orderedRides.Any() || car.AverageScoreForRide(orderedRides.First()) == 0d)
+                    {
+                        car.ServiceEnded = true;
+                        break;
+                    }
+                    Ride toRemove = null;
+                    foreach (var ride in orderedRides)
+                    {
+                        if (car.CanDoRide(ride).Item1)
+                        {
+                            car.DoRide(ride);
+                            toRemove = ride;
+                            break;
+                        }
+                    }
+                    if (toRemove != null)
+                    {
+                        state.rides.Remove(toRemove);
+                    }
+                    else
+                    {
+                        car.ServiceEnded = true;
+                    }
+                }
             }
             return true;
         }

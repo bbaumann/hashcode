@@ -12,11 +12,12 @@ namespace hashcode.march.Models
         public int CurrentStep { get; set; }
 
         public List<Ride> RideHistory { get; private set; }
-
+        
         public Car()
         {
             this.RideHistory = new List<Ride>();
             this.CurrentCoord = new Coord(0, 0);
+            this.ServiceEnded = false;
         }
 
         public void MoveTo(Coord destination)
@@ -64,10 +65,35 @@ namespace hashcode.march.Models
             return new Tuple<bool, bool>(canFinishOnTime, canHavebonus);
         }
 
+        public double AverageScoreForRide(Ride r)
+        {
+            int distanceToStart = this.CurrentCoord.ComputeDistance(r.StartingPoint);
+
+            int minCarFinish = this.CurrentStep + distanceToStart + r.Distance;
+            bool canFinishOnTime = (minCarFinish < Math.Min(r.LatestFinish, Settings.MaxStep));
+            bool canHavebonus = canFinishOnTime && ((this.CurrentStep + distanceToStart) <= r.EarliestStart);
+
+            double res = 0;
+            int points = 0;
+            if (canFinishOnTime)
+            {
+                points += r.Distance;
+                if (canHavebonus)
+                {
+                    points += Settings.BonusPointForStartingOnTime;
+                }
+                res = ((double)points) / (double)(minCarFinish - this.CurrentStep);
+            }
+            return res;
+        }
+
         public bool IsAvailable(int step)
         {
-            return this.CurrentStep <= step;
+            return !this.ServiceEnded && this.CurrentStep <= step;
         }
+
+        public bool ServiceEnded { get; set; }
+
         public string DumpRides()
         {
             StringBuilder sb = new StringBuilder();

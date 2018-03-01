@@ -7,6 +7,12 @@ namespace hashcode.march
 {
     class Helper
     {
+        public static void InitResult()
+        {
+            if (File.Exists(@"result.txt"))
+                File.Delete(@"result.txt");
+        }
+
         public static void ConsoleLog(string inMsg)
         {
             //Console.WriteLine(inMsg);

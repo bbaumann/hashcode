@@ -51,20 +51,7 @@ namespace hashcode.march.Models
             return res;
         }
 
-        public double GetPointsAwardedAverage(int startStep, int finishStep)
-        {
-            double res = 0;
-            if (finishStep < Math.Min(this.LatestFinish, Settings.MaxStep))
-            {
-                res += Distance;
-                if (startStep == EarliestStart)
-                {
-                    res += Settings.BonusPointForStartingOnTime;
-                }
-                res = (double)res / (double)(finishStep - startStep);
-            }
-            return res;
-        }
+        
 
 
 

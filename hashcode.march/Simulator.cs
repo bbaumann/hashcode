@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using hashcode.march.Models;
 
 namespace hashcode.march
 {
     class Simulator
     {
         // return the score
-        public int Simulate(State state, Generator generator)
+        public int Simulate(State state, IGenerator generator)
         {
-            Models.Car[] cars = new Models.Car[state.fleetCount];
+            List<Car> cars = new List<Car>(state.fleetCount);
             for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
             {
-                cars[carIndex] = new Models.Car();
+                cars.Add(new Car());
             }
 
             for (int step = 0; step < state.stepCount; ++step)
             {
-                generator.CalcOrders(step, state, cars);
+                //generator.CalcOrders(step, state, cars);
+                generator.CalcOrders(state, cars);
             }
-
-            for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
+            foreach (var car in cars)
             {
-                Helper.ConsoleLog(cars[carIndex].DumpRides());
+                Helper.ConsoleLog(car.DumpRides());
             }
 
             return 0;
