@@ -7,6 +7,8 @@ namespace hashcode.march
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            string s = Console.ReadLine();
         }
     }
 }
