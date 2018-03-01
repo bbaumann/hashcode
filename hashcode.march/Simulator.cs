@@ -22,7 +22,7 @@ namespace hashcode.march
 
             for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
             {
-                cars[carIndex].DumpRides();
+                Helper.ConsoleLog(cars[carIndex].DumpRides());
             }
 
             return 0;
