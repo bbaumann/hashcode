@@ -19,7 +19,7 @@ namespace hashcode.march.Models
 
         public int DoRide(Ride r)
         {
-
+            return 0;
         }
     }
 }

@@ -22,6 +22,11 @@ namespace hashcode.march.Models
             }
         }
 
+        public Ride()
+        {
+
+        }
+
         public Ride(Coord start, Coord finish, int earliestStart, int latestFinish)
         {
             this.StartingPoint = start;
