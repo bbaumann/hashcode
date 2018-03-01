@@ -49,6 +49,10 @@ namespace hashcode.march.Models
             return res;
         }
 
+        public bool IsValid()
+        {
+            return EarliestStart + Distance < Math.Min(LatestFinish, Settings.MaxStep);
+        }
 
     }
 }
