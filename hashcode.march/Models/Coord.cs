@@ -11,6 +11,12 @@ namespace hashcode.march.Models
 
         public int Y { get; set; }
 
+        public Coord(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
         public int ComputeDistance(Coord other)
         {
             return Math.Abs(this.X - other.X) + Math.Abs(this.Y - other.Y);

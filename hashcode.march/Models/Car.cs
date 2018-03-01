@@ -16,5 +16,10 @@ namespace hashcode.march.Models
         {
             this.RideHistory = new List<Ride>();
         }
+
+        public int DoRide(Ride r)
+        {
+
+        }
     }
 }
