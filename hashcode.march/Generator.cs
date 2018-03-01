@@ -23,7 +23,7 @@ namespace hashcode.march
                 }
                 for (int carIndex = 0; carIndex < state.fleetCount; ++carIndex)
                 {
-                    if (cars[carIndex].IsAvailable(step))
+                    if (cars[carIndex].IsAvailable(step) && cars[carIndex].CanDoRide(ride).Item1)
                     {
                         cars[carIndex].DoRide(ride);
                         toRemove.Add(ride);

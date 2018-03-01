@@ -38,13 +38,15 @@ namespace hashcode.march
             state.fleetCount = int.Parse(inputs[index++]);
             state.ridesCount = int.Parse(inputs[index++]);
             state.bonusCount = int.Parse(inputs[index++]);
+            Settings.BonusPointForStartingOnTime = state.bonusCount;
             state.stepCount = int.Parse(inputs[index++]);
+            Settings.MaxStep = state.stepCount - 1;
 
             List<Ride> rides = new List<Ride>();
             for (int rideIndex = 0; rideIndex < state.ridesCount; ++rideIndex) {
                 inputs = ReadLine().Split(' ');
-                state.rides.Add(new Ride() { StartingPoint =new Coord(int.Parse(inputs[0]), int.Parse(inputs[2])),
-                                       FinishPoint = new Coord(int.Parse(inputs[1]), int.Parse(inputs[3])),
+                state.rides.Add(new Ride() { StartingPoint =new Coord(int.Parse(inputs[0]), int.Parse(inputs[1])),
+                                       FinishPoint = new Coord(int.Parse(inputs[2]), int.Parse(inputs[3])),
                                        EarliestStart = int.Parse(inputs[4]),
                                        LatestFinish = int.Parse(inputs[5]),
                                        Id = rideIndex});

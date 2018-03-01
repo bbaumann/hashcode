@@ -16,6 +16,7 @@ namespace hashcode.march.Models
         public Car()
         {
             this.RideHistory = new List<Ride>();
+            this.CurrentCoord = new Coord(0, 0);
         }
 
         public void MoveTo(Coord destination)
@@ -39,9 +40,15 @@ namespace hashcode.march.Models
             }
             int startStep = this.CurrentStep;
             this.MoveTo(r.FinishPoint);
+            this.DropPassenger();
             int finishStep = this.CurrentStep;
             RideHistory.Add(r);
             return r.GetPointsAwarded(startStep, finishStep);
+        }
+
+        private void DropPassenger()
+        {
+            CurrentStep++;
         }
 
         public Tuple<bool, bool> CanDoRide(Ride r)
@@ -51,7 +58,7 @@ namespace hashcode.march.Models
 
             int distanceToStart = this.CurrentCoord.ComputeDistance(r.StartingPoint);
 
-            canFinishOnTime = ((this.CurrentStep + distanceToStart + r.Distance) < r.LatestFinish);
+            canFinishOnTime = ((this.CurrentStep + distanceToStart + r.Distance) < Math.Min(r.LatestFinish,Settings.MaxStep));
             canHavebonus = canFinishOnTime && ((this.CurrentStep + distanceToStart) <= r.EarliestStart);
             
             return new Tuple<bool, bool>(canFinishOnTime, canHavebonus);
