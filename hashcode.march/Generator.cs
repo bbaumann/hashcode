@@ -6,10 +6,14 @@ namespace hashcode.march
 {
     interface IGenerator
     {
-
+        bool CalcOrders();
     }
 
     class Generator : IGenerator
     {
+        public bool CalcOrders()
+        {
+            return true;
+        }
     }
 }

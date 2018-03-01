@@ -14,6 +14,8 @@ namespace hashcode.march.Models
 
         public int LatestFinish { get; set; }
 
+        public int Id { get; set; }
+
         public int Distance
         {
             get

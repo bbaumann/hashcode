@@ -9,6 +9,10 @@ namespace hashcode.march
         // return the score
         int Simulate(State state, Generator generator)
         {
+            for (int i = 0; i < state.stepCount; ++i)
+            {
+                // generator.GetOrder();
+            }
             return 0;
         }
     }
