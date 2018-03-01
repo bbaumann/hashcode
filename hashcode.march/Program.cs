@@ -27,6 +27,7 @@ namespace hashcode.march
 
         static void Main(string[] args)
         {
+            //List<string> entries = new List<string>() { "./a_example.in", "./b_should_be_easy.in", "./c_no_hurry.in", "./d_metropolis.in", "./e_high_bonus.in" };
             List<string> entries = new List<string>() { "./a_example.in", "./b_should_be_easy.in", "./c_no_hurry.in", "./d_metropolis.in", "./e_high_bonus.in" };
             foreach (var entry in entries)
             {
