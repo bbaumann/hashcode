@@ -68,7 +68,7 @@ namespace hashcode.march.Models
 
 
 
-        public bool IsValid()
+        public bool IsOk()
         {
             return EarliestStart + Distance < Math.Min(LatestFinish, Settings.MaxStep);
         }

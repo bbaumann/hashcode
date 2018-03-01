@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace hashcode.march.Models
 {
@@ -60,6 +61,14 @@ namespace hashcode.march.Models
         {
             return this.CurrentStep <= step;
         }
-        
+        public string DumpRides()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(RideHistory.Count);
+            sb.Append(" ");
+            sb.Append(String.Join(' ', RideHistory.Select(r => r.Id.ToString())));
+            return sb.ToString();
+        }
+
     }
 }
