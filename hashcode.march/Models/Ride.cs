@@ -14,6 +14,14 @@ namespace hashcode.march.Models
 
         public int LatestFinish { get; set; }
 
+        public int Distance
+        {
+            get
+            {
+                return StartingPoint.ComputeDistance(FinishPoint);
+            }
+        }
+
         public Ride(Coord start, Coord finish, int earliestStart, int latestFinish)
         {
             this.StartingPoint = start;
@@ -27,8 +35,13 @@ namespace hashcode.march.Models
             int res = 0;
             if (finishStep <= this.LatestFinish)
             {
-                res += 
+                res += Distance;
+                if (startStep == EarliestStart)
+                {
+                    res += Settings.BonusPointForStartingOnTime;
+                }
             }
+            return res;
         }
 
 
