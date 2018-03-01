@@ -92,4 +92,91 @@ namespace hashcode.march
             return true;
         }
     }
+
+
+    class MinWaitTimeGenerator : IGenerator
+    {
+        public bool CalcOrders(int step, State state, List<Car> cars)
+        {
+            return true;
+        }
+
+        public bool CalcOrders(State state, List<Car> cars)
+        {
+            foreach (var car in cars)
+            {
+                while (!car.ServiceEnded)
+                {
+                    var orderedRides = state.rides.OrderBy(r => car.WaitTimeToRideStart(r));
+                    if (!orderedRides.Any() || car.AverageScoreForRide(orderedRides.First()) == 0d)
+                    {
+                        car.ServiceEnded = true;
+                        break;
+                    }
+                    Ride toRemove = null;
+                    foreach (var ride in orderedRides)
+                    {
+                        if (car.CanDoRide(ride).Item1)
+                        {
+                            car.DoRide(ride);
+                            toRemove = ride;
+                            break;
+                        }
+                    }
+                    if (toRemove != null)
+                    {
+                        state.rides.Remove(toRemove);
+                    }
+                    else
+                    {
+                        car.ServiceEnded = true;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+    class StartOnTimeGenerator : IGenerator
+    {
+        public bool CalcOrders(int step, State state, List<Car> cars)
+        {
+            return true;
+        }
+
+        public bool CalcOrders(State state, List<Car> cars)
+        {
+            foreach (var car in cars)
+            {
+                while (!car.ServiceEnded)
+                {
+                    var orderedRides = state.rides.OrderBy(r => car.WaitTimeToRideStart(r));
+                    if (!orderedRides.Any())
+                    {
+                        car.ServiceEnded = true;
+                        break;
+                    }
+                    Ride toRemove = null;
+                    foreach (var ride in orderedRides)
+                    {
+                        if (car.CanDoRide(ride).Item2)
+                        {
+                            car.DoRide(ride);
+                            toRemove = ride;
+                            break;
+                        }
+                    }
+                    if (toRemove != null)
+                    {
+                        state.rides.Remove(toRemove);
+                    }
+                    else
+                    {
+                        car.ServiceEnded = true;
+                    }
+                }
+            }
+            return true;
+        }
+    }
 }

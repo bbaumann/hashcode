@@ -65,6 +65,17 @@ namespace hashcode.march.Models
             return new Tuple<bool, bool>(canFinishOnTime, canHavebonus);
         }
 
+        public int WaitTimeToRideStart(Ride r)
+        {
+            int distanceToStart = this.CurrentCoord.ComputeDistance(r.StartingPoint);
+            int res = distanceToStart;
+            int minStart = r.EarliestStart;
+            if (this.CurrentStep + distanceToStart < r.EarliestStart)
+                res += r.EarliestStart - this.CurrentStep - distanceToStart;
+
+            return res;
+        }
+        
         public double AverageScoreForRide(Ride r)
         {
             int distanceToStart = this.CurrentCoord.ComputeDistance(r.StartingPoint);

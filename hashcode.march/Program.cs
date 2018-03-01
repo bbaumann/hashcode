@@ -28,10 +28,9 @@ namespace hashcode.march
         static void Main(string[] args)
         {
             //List<string> entries = new List<string>() { "./a_example.in", "./b_should_be_easy.in", "./c_no_hurry.in", "./d_metropolis.in", "./e_high_bonus.in" };
-            List<string> entries = new List<string>() { "./a_example.in", "./b_should_be_easy.in", "./c_no_hurry.in", "./d_metropolis.in", "./e_high_bonus.in" };
+            List<string> entries = new List<string>() { "./e_high_bonus.in" };
             foreach (var entry in entries)
             {
-                Console.WriteLine(entry);
                 contentLines = System.IO.File.ReadAllLines(entry);
 
                 Helper.InitResult(entry);
@@ -62,9 +61,10 @@ namespace hashcode.march
                     });
                 }
 
-                IGenerator gen = new MostPointGenerator();
+                IGenerator gen = new StartOnTimeGenerator();
                 Simulator sim = new Simulator();
                 sim.Simulate(state, gen, entry+".out");
+                Console.WriteLine(entry);
             }
 
             string dummy = Console.ReadLine();
