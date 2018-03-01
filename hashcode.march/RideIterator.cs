@@ -27,19 +27,22 @@ namespace hashcode.march
             rides = state.rides;
             rides.Sort(rideAbsComp);
             index = 0;
+            maxStep = state.stepCount;
         }
 
-        bool Begin(int inMaxStep, int inMaxItem)
+        bool Begin(int inMaxStep = -1, int inMaxItem = -1)
         {
-            maxItem = inMaxItem;
-            maxStep = inMaxStep;
+            maxItem = inMaxItem != -1 ? inMaxItem : maxItem;
+            maxStep = inMaxStep != -1 ? inMaxStep : maxStep;
             index = 0;
             return true;
         }
 
         public Models.Ride Next()
         {
-            if (index >= rides.Count - 1)
+            if (index >= rides.Count - 1 ||
+                maxStep > rides[index].EarliestStart ||
+                maxItem > index)
             {
                 return null;
             }
