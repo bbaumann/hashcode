@@ -9,7 +9,7 @@ namespace hashcode.tools
     {
         private readonly State s;
         private readonly String inputFile;
-        private readonly ISolutionGenerator<State, Solution> generator;
+        private readonly ISolver<State, Solution> generator;
         
         private int iteration = 0;
         private int bestSolutionCount = 0;
@@ -17,7 +17,7 @@ namespace hashcode.tools
         private Solution best;
         
         public SolutionFinder(String inputFile, IStateFactory<State> factory,
-        ISolutionGenerator<State, Solution> generator) {
+        ISolver<State, Solution> generator) {
             this.generator = generator;
             s = factory.fromString(hashcode.tools.FîleHelper.ReadFileContent(inputFile+".in"));
             this.inputFile = inputFile;
@@ -26,11 +26,11 @@ namespace hashcode.tools
         public void Run(){
             best = default(Solution);
             bestValue = Double.MinValue;
-            while (true){
+            while (iteration++ <1){
                 try{
                     iteration++;
                     //System.out.println(iteration);
-                    Solution next = generator.Next(s);
+                    Solution next = generator.Solve(s);
                     double score = next.Value(s);
                     if (score > bestValue){
                         bestSolutionCount++;
@@ -51,11 +51,15 @@ namespace hashcode.tools
         }
         
         public static void launchOnSeveralFiles(List<String> filenames, IStateFactory<State> factory,
-        ISolutionGeneratorFactory<State, Solution> generatorFactory){
+        ISolverFactory<State, Solution> generatorFactory){
             IEnumerable<SolutionFinder<Solution,State>> finders = filenames.Select(f =>
                 new SolutionFinder<Solution,State>(f,factory,generatorFactory.newInstance()));
             
             Parallel.Invoke(finders.Select(f => new Action(f.Run)).ToArray());
+            //foreach (var finder in finders)
+            //{
+            //    Task.Run(new Action(finder.Run));
+            //}
         }
     }
 }

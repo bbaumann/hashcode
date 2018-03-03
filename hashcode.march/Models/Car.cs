@@ -12,12 +12,20 @@ namespace hashcode.march.Models
         public int CurrentStep { get; set; }
 
         public List<Ride> RideHistory { get; private set; }
-        
-        public Car()
+
+        public int Score { get; private set; }
+
+        private int startOnTimeBonus = 0;
+        private int maxStep = 0;
+
+        public Car(int bonus, int maxStep)
         {
             this.RideHistory = new List<Ride>();
             this.CurrentCoord = new Coord(0, 0);
             this.ServiceEnded = false;
+
+            this.startOnTimeBonus = bonus;
+            this.maxStep = maxStep;
         }
 
         public void MoveTo(Coord destination)
@@ -31,11 +39,10 @@ namespace hashcode.march.Models
         /// returns points awarded
         /// </summary>
         /// <param name="r"></param>
-        /// <returns></returns>
-        public int DoRide(Ride r)
+        public void DoRide(Ride r)
         {
             this.MoveTo(r.StartingPoint);
-            if (this.CurrentStep <= r.EarliestStart)
+            if (this.CurrentStep < r.EarliestStart)
             {
                 this.CurrentStep = r.EarliestStart;
             }
@@ -44,7 +51,7 @@ namespace hashcode.march.Models
             this.DropPassenger();
             int finishStep = this.CurrentStep;
             RideHistory.Add(r);
-            return r.GetPointsAwarded(startStep, finishStep);
+            Score += r.GetPointsAwarded(startStep, finishStep);
         }
 
         private void DropPassenger()
@@ -59,7 +66,7 @@ namespace hashcode.march.Models
 
             int distanceToStart = this.CurrentCoord.ComputeDistance(r.StartingPoint);
 
-            canFinishOnTime = ((this.CurrentStep + distanceToStart + r.Distance) < Math.Min(r.LatestFinish,Settings.MaxStep));
+            canFinishOnTime = ((this.CurrentStep + distanceToStart + r.Distance) < Math.Min(r.LatestFinish, maxStep));
             canHavebonus = canFinishOnTime && ((this.CurrentStep + distanceToStart) <= r.EarliestStart);
             
             return new Tuple<bool, bool>(canFinishOnTime, canHavebonus);
@@ -81,7 +88,7 @@ namespace hashcode.march.Models
             int distanceToStart = this.CurrentCoord.ComputeDistance(r.StartingPoint);
 
             int minCarFinish = this.CurrentStep + distanceToStart + r.Distance;
-            bool canFinishOnTime = (minCarFinish < Math.Min(r.LatestFinish, Settings.MaxStep));
+            bool canFinishOnTime = (minCarFinish < Math.Min(r.LatestFinish, maxStep));
             bool canHavebonus = canFinishOnTime && ((this.CurrentStep + distanceToStart) <= r.EarliestStart);
 
             double res = 0;
@@ -91,7 +98,7 @@ namespace hashcode.march.Models
                 points += r.Distance;
                 if (canHavebonus)
                 {
-                    points += Settings.BonusPointForStartingOnTime;
+                    points += startOnTimeBonus;
                 }
                 res = ((double)points) / (double)(minCarFinish - this.CurrentStep);
             }

@@ -24,10 +24,10 @@ namespace hashcode.march
         public RideIterator(State state)
         {
             RideAbsComp rideAbsComp = new RideAbsComp();
-            rides = state.rides;
+            rides = state.Rides;
             rides.Sort(rideAbsComp);
             index = 0;
-            maxStep = state.stepCount;
+            maxStep = state.StepCount;
         }
 
         bool Begin(int inMaxStep = -1, int inMaxItem = -1)

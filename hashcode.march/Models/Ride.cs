@@ -24,9 +24,13 @@ namespace hashcode.march.Models
             }
         }
 
-        public Ride()
-        {
+        private int startOnTimeBonus = 0;
+        private int maxStep = 0;
 
+        public Ride(int startOnTimeBonus, int maxStep)
+        {
+            this.startOnTimeBonus = startOnTimeBonus;
+            this.maxStep = maxStep;
         }
 
         public Ride(Coord start, Coord finish, int earliestStart, int latestFinish)
@@ -40,24 +44,21 @@ namespace hashcode.march.Models
         public int GetPointsAwarded(int startStep, int finishStep)
         {
             int res = 0;
-            if (finishStep < Math.Min(this.LatestFinish, Settings.MaxStep))
+            if (finishStep <= Math.Min(this.LatestFinish, maxStep))
             {
                 res += Distance;
                 if (startStep == EarliestStart)
                 {
-                    res += Settings.BonusPointForStartingOnTime;
+                    res += startOnTimeBonus;
                 }
             }
             return res;
         }
 
-        
-
-
 
         public bool IsOk()
         {
-            return EarliestStart + Distance < Math.Min(LatestFinish, Settings.MaxStep);
+            return EarliestStart + Distance < Math.Min(LatestFinish, maxStep);
         }
     }
 }

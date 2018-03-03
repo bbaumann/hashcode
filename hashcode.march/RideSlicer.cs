@@ -13,7 +13,7 @@ namespace hashcode.march
         public RideSlicer(State state)
         {
             RideAbsComp rideAbsComp = new RideAbsComp();
-            List<Ride> rides = state.rides;
+            List<Ride> rides = state.Rides;
             rides.Sort(rideAbsComp);
         }
 
