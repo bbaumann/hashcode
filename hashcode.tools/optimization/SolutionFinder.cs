@@ -26,7 +26,7 @@ namespace hashcode.tools
         public void Run(){
             best = default(Solution);
             bestValue = Double.MinValue;
-            while (iteration++ <1){
+            while (true){
                 try{
                     iteration++;
                     //System.out.println(iteration);

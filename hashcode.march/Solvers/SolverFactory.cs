@@ -10,7 +10,7 @@ namespace hashcode.march.Solvers
     {
         public ISolver<State, Solution> newInstance()
         {
-            return new MostAveragePointsSolver();
+            return new MixedSolver();
         }
     }
 }

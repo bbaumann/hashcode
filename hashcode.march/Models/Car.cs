@@ -61,6 +61,8 @@ namespace hashcode.march.Models
 
         public Tuple<bool, bool> CanDoRide(Ride r)
         {
+            if (ServiceEnded)
+                return new Tuple<bool, bool>(false, false);
             bool canHavebonus = false;
             bool canFinishOnTime = false;
 

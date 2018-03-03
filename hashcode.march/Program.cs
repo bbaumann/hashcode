@@ -15,7 +15,9 @@ namespace hashcode.march
 
         static void Main(string[] args)
         {
-            List<string> entries = new List<string>() { "a_example", "b_should_be_easy", "c_no_hurry", "d_metropolis", "e_high_bonus" };
+        //    List<string> entries = new List<string>() { "a_example", "b_should_be_easy", "c_no_hurry", "d_metropolis", "e_high_bonus" };
+
+            List<string> entries = new List<string>() { "b_should_be_easy", "d_metropolis" };
 
             //SolutionFinder<Solution, State> finder = new SolutionFinder<Solution, State>("a_example", new StateFactory(), new DumbSolver());
 
@@ -24,5 +26,6 @@ namespace hashcode.march
               string dummy = Console.ReadLine();
 
         }
+
     }
 }
