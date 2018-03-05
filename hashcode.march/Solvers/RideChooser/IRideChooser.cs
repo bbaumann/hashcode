@@ -7,6 +7,8 @@ namespace hashcode.march.Solvers
 {
     public interface IRideChooser
     {
-        bool ChooseRide(Car c, IList<Ride> remainingRides);
+        bool ChooseRide(IList<Car> cars, IList<Ride> remainingRides);
+
+        void Init();
     }
 }

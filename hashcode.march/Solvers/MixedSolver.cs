@@ -7,36 +7,17 @@ using System.Text;
 
 namespace hashcode.march.Solvers
 {
-    public class MixedSolver : ISolver<State, Solution>
+    public class MixedSolver : BaseSolver
     {
-        private IRideChooser randomRideChooser = new RandomRideChooser();
-        private IRideChooser mostAveragePointRideChooser = new MostAveragePointRideChooser();
-
-        private Random rand = new Random();
-
-        public Solution Solve(State state)
+        public MixedSolver(List<Tuple<BaseSolver, int>> SolversWithWeight) : 
+            base(new MixedRideChooser(SolversWithWeight
+                    .Select(s => new { s.Item1.rideChooser, s.Item2 })
+                .AsEnumerable()
+                .Select(r => new Tuple<IRideChooser, int>(r.rideChooser,r.Item2))
+                .ToList())
+            )
         {
-            List<Ride> remainingRides = new List<Ride>(state.Rides);
-            List<Ride> toRemove = new List<Ride>();
-            Solution res = new Solution(state);
-
-            foreach (var car in res.Cars)
-            {
-                bool again = true;
-                while (again)
-                {
-                    double r = rand.NextDouble();
-                    if (r <=0.9)
-                    {
-                        again = mostAveragePointRideChooser.ChooseRide(car, remainingRides);
-                    }
-                    else
-                    {
-                        again = randomRideChooser.ChooseRide(car, remainingRides);
-                    }
-                }
-            }
-            return res;
+            Logger.Log("Mixed Strategy with " + String.Join(", ",SolversWithWeight.Select(s => s.Item1.GetType().Name + " x" + s.Item2)));
         }
     }
 }

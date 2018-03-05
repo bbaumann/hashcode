@@ -8,8 +8,9 @@ namespace hashcode.march.Solvers
 {
     public class MostAveragePointRideChooser : IRideChooser
     {
-        public bool ChooseRide(Car car, IList<Ride> remainingRides)
+        public bool ChooseRide(IList<Car> cars, IList<Ride> remainingRides)
         {
+            var car = cars.First(c => !c.ServiceEnded);
             var orderedRides = remainingRides.OrderByDescending(r => car.AverageScoreForRide(r));
             if (!orderedRides.Any() || car.AverageScoreForRide(orderedRides.First()) == 0d)
             {
@@ -33,6 +34,10 @@ namespace hashcode.march.Solvers
             }
             car.ServiceEnded = true;
             return false;
+        }
+
+        public void Init()
+        {
         }
     }
 }

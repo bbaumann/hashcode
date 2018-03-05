@@ -7,14 +7,16 @@ namespace hashcode.tools
 {
     public class SolutionFinder<Solution, State> where Solution : ISolution<State>
     {
-        private readonly State s;
-        private readonly String inputFile;
-        private readonly ISolver<State, Solution> generator;
+
+        private static Object mutex = new object();
+        protected readonly State s;
+        protected readonly String inputFile;
+        protected ISolver<State, Solution> generator;
         
         private int iteration = 0;
-        private int bestSolutionCount = 0;
-        private double bestValue;
-        private Solution best;
+        protected int bestSolutionCount = 0;
+        protected double bestValue;
+        protected Solution best;
         
         public SolutionFinder(String inputFile, IStateFactory<State> factory,
         ISolver<State, Solution> generator) {
@@ -29,6 +31,8 @@ namespace hashcode.tools
             while (true){
                 try{
                     iteration++;
+                    if (iteration % 10 == 0)
+                        Logger.Log(iteration.ToString());
                     //System.out.println(iteration);
                     Solution next = generator.Solve(s);
                     double score = next.Value(s);
@@ -46,7 +50,53 @@ namespace hashcode.tools
             }
         }
 
-        private void writeSolution() {
+        public void RunParallel(int nbTasks)
+        {
+            best = default(Solution);
+            bestValue = Double.MinValue;
+
+            Action run = () =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        lock (mutex)
+                        {
+                            iteration++;
+                            if (iteration % 10 == 0)
+                                Logger.Log(iteration.ToString());
+                            //System.out.println(iteration);
+                        }
+                        Solution next = generator.Solve(s);
+                        double score = next.Value(s);
+                        lock (mutex)
+                        {
+                            if (score > bestValue)
+                            {
+                                bestSolutionCount++;
+                                bestValue = score;
+                                best = next;
+                                Console.WriteLine("New solution found for " + inputFile + " with score:" + score);
+                                writeSolution();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Log(e);
+                    }
+                }
+            };
+            List<Action> toRun = new List<Action>();
+            for (int i = 0; i < nbTasks; i++)
+            {
+                toRun.Add(run);
+            }
+            Parallel.Invoke(toRun.ToArray());
+        }
+
+        protected void writeSolution() {
             FîleHelper.WriteFileContent(inputFile+"_"+bestValue+"_"+bestSolutionCount+".out", best.ToOutputFormat(), false);
         }
         

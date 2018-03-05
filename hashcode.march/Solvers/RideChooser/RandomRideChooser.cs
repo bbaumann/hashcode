@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using hashcode.march.Models;
 
 namespace hashcode.march.Solvers
@@ -25,10 +26,12 @@ namespace hashcode.march.Solvers
     }
     public class RandomRideChooser : IRideChooser
     {
-        public bool ChooseRide(Car car, IList<Ride> remainingRides)
+        public bool ChooseRide(IList<Car> cars, IList<Ride> remainingRides)
         {
             Ride toRemove = null;
             remainingRides.Shuffle();
+            cars.Shuffle();
+            var car = cars.First(c => !c.ServiceEnded);
             foreach (var ride in remainingRides)
             {
                 if (!ride.IsOk())
@@ -48,7 +51,12 @@ namespace hashcode.march.Solvers
                 remainingRides.Remove(toRemove);
                 return true;
             }
+            car.ServiceEnded = true;
             return false;
+        }
+
+        public void Init()
+        {
         }
     }
 }

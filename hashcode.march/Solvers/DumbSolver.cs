@@ -7,24 +7,18 @@ using System.Text;
 
 namespace hashcode.march.Solvers
 {
-    public class DumbSolver : ISolver<State, Solution>
+    public class DumbSolver : BaseSolver
     {
-        private IRideChooser rideChooser = new DumbRideChooser();
-
-        public Solution Solve(State state)
+        public DumbSolver() : base(new DumbRideChooser())
         {
-            List<Ride> remainingRides = new List<Ride>(state.Rides);
-            List<Ride> toRemove = new List<Ride>();
-            Solution res = new Solution(state);
 
-            foreach (var car in res.Cars)
-            {
-                while (rideChooser.ChooseRide(car,remainingRides))
-                {
+        }
+    }
 
-                }
-            }
-            return res;
+    public class RandomSolver : BaseSolver
+    {
+        public RandomSolver() : base(new RandomRideChooser())
+        {
         }
     }
 }

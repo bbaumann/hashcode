@@ -7,9 +7,9 @@ using System.Text;
 
 namespace hashcode.march.Solvers
 {
-    public class BonusHunterSolver : BaseSolver
+    public class BonusHunterCarLimitSolver : BaseSolver
     {
-        public BonusHunterSolver(IRideChooser fallback) : base(new BonusHunterRideChooser(fallback))
+        public BonusHunterCarLimitSolver(int maxWaitTime) : base(new BonusHunterCarLimitedRideChooser(new MostAveragePointRideChooser(), maxWaitTime))
         {
         }
         

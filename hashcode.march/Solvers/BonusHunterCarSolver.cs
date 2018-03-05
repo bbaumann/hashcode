@@ -7,11 +7,11 @@ using System.Text;
 
 namespace hashcode.march.Solvers
 {
-    public class MostAveragePointsSolver : BaseSolver
+    public class BonusHunterCarSolver : BaseSolver
     {
-        public MostAveragePointsSolver() : base(new MostAveragePointRideChooser())
+        public BonusHunterCarSolver(IRideChooser fallback) : base(new BonusHunterCarRideChooser(fallback))
         {
-
         }
+        
     }
 }
