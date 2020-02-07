@@ -18,7 +18,7 @@ namespace hashcode._2020.Solvers
         {
             return new List<BaseSolver>()
             {
-                new DumbSolver()
+                new DumbSolver(false)
             };
         }
 
@@ -29,7 +29,7 @@ namespace hashcode._2020.Solvers
 
         public ISolver<State, Solution> newInstance()
         {
-            return new DumbSolver();
+            return new DumbSolver(true);
         }
     }
 }

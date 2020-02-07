@@ -10,6 +10,7 @@ namespace hashcode._2020.Solvers
     public class MixedSolver : BaseSolver
     {
         public MixedSolver(List<Tuple<BaseSolver, int>> SolversWithWeight)
+            : base(false)
             //: base(new MixedRideChooser(SolversWithWeight
             //        .Select(s => new { s.Item1.rideChooser, s.Item2 })
             //    .AsEnumerable()

@@ -31,7 +31,7 @@ namespace hashcode.march
                 mixedStrategy.Add(new Tuple<BaseSolver, int>(toKeep[2].Item1, 2));
             //mixedStrategy.Add(new Tuple<BaseSolver, int>(new RandomSolver(), 1));
 
-            this.generator = new MixedSolver(mixedStrategy);
+            this.solver = new MixedSolver(mixedStrategy);
 
             RunParallel(8);
         }

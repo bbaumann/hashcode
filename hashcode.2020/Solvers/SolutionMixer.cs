@@ -36,7 +36,7 @@ namespace hashcode._2020.Solvers
                 mixedStrategyWithWeight.Add(new Tuple<BaseSolver, int>(toKeep[2].Item1, 2));
             //mixedStrategy.Add(new Tuple<BaseSolver, int>(new RandomSolver(), 1));
 
-            this.generator = new MixedSolver(mixedStrategyWithWeight);
+            this.solver = new MixedSolver(mixedStrategyWithWeight);
 
             //Run forever with the indicated weight
             RunParallel(8);

@@ -11,7 +11,7 @@ namespace hashcode.tools
         private static Object mutex = new object();
         protected readonly State s;
         protected readonly String inputFile;
-        protected ISolver<State, Solution> generator;
+        protected ISolver<State, Solution> solver;
         
         private int iteration = 0;
         protected int bestSolutionCount = 0;
@@ -19,8 +19,8 @@ namespace hashcode.tools
         protected Solution best;
         
         public SolutionFinder(String inputFile, IStateFactory<State> factory,
-        ISolver<State, Solution> generator) {
-            this.generator = generator;
+        ISolver<State, Solution> solver) {
+            this.solver = solver;
             s = factory.fromString(hashcode.tools.FîleHelper.ReadFileContent(inputFile+".in"));
             this.inputFile = inputFile;
         }
@@ -34,7 +34,7 @@ namespace hashcode.tools
                     if (iteration % 10 == 0)
                         Logger.Log(iteration.ToString());
                     //System.out.println(iteration);
-                    Solution next = generator.Solve(s);
+                    Solution next = solver.Solve(s);
                     double score = next.Value(s);
                     if (score > bestValue){
                         bestSolutionCount++;
@@ -68,7 +68,9 @@ namespace hashcode.tools
                                 Logger.Log(iteration.ToString());
                             //System.out.println(iteration);
                         }
-                        Solution next = generator.Solve(s);
+                        Solution next = solver.Solve(s);
+                        if (next == null)
+                            break;
                         double score = next.Value(s);
                         lock (mutex)
                         {

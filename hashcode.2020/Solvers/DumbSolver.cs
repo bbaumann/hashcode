@@ -6,5 +6,8 @@ namespace hashcode._2020.Solvers
 {
     public class DumbSolver : BaseSolver
     {
+        public DumbSolver(bool isDeterministic) : base(isDeterministic)
+        {
+        }
     }
 }
