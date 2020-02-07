@@ -106,10 +106,6 @@ namespace hashcode.tools
                 new SolutionFinder<Solution,State>(f,factory,generatorFactory.newInstance()));
             
             Parallel.Invoke(finders.Select(f => new Action(f.Run)).ToArray());
-            //foreach (var finder in finders)
-            //{
-            //    Task.Run(new Action(finder.Run));
-            //}
         }
     }
 }
