@@ -50,14 +50,16 @@ namespace hashcode._2020.Models
                         NbDaysToSignup = int.Parse(inputs[1])
                     });
                 } else {
-                    state.Libraries[state.Libraries.Count() - 1].Books = new List<Book>();
+                    state.Libraries[state.Libraries.Count() - 1].Books = new SortedList<Book,Book>();
                     for (var i_in = 0; i_in < inputs.Length; ++i_in)
                     {
                         var id = int.Parse(inputs[i_in]);
-                        state.Libraries[libIndex].Books.Add(new Book {
+                        var book = new Book
+                        {
                             Id = id,
                             Score = state.ScoreByBookId[id]
-                        });
+                        };
+                        state.Libraries[libIndex].Books.Add(book,book);
                     }
                     ++libIndex;
                 }

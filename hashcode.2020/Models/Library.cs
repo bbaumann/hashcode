@@ -14,6 +14,6 @@ namespace hashcode._2020.Models
 
         public int Freq { get; set; }
 
-        public List<Book> Books { get; set; }
+        public SortedList<Book,Book> Books { get; set; }
     }
 }
