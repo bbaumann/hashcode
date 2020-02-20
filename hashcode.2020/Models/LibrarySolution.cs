@@ -18,11 +18,13 @@ namespace hashcode._2020.Models
         private int _currentBookIndex = 0;
 
         //without duplicates
-        public List<Book> OrderedBooksToScan { get; set; }
+        public List<Book> OrderedBooksToScan { get; private set; }
 
-        public WorkingLibrary(Library initialLibrary)
+        public WorkingLibrary(Library initialLibrary, int signupDate)
         {
             InitialLibrary = initialLibrary;
+            SignupDate = signupDate;
+            OrderedBooksToScan = new List<Book>();
         }
 
         public bool CanSignUp(int signUpDate)
@@ -33,14 +35,17 @@ namespace hashcode._2020.Models
 
         private void ShipBooksForOneDay()
         {
-            var newBooks = this.InitialLibrary.Books.Skip(_currentBookIndex).Take(InitialLibrary.Freq).Select(b => b.Value).ToList();
-            OrderedBooksToScan.AddRange(newBooks);
-            _currentBookIndex += newBooks.Count;
+            var newBooks = this.InitialLibrary.Books.Skip(_currentBookIndex)?.Take(InitialLibrary.Freq)?.Select(b => b.Value)?.ToList();
+            if (newBooks != null)
+            {
+                OrderedBooksToScan.AddRange(newBooks);
+                _currentBookIndex += newBooks.Count;
+            }
         }
 
         public void ShipBooks()
         {
-            //TODO improve perf 
+            //TODO improve perf
             int nbDaysToShip = StateFactory.CurrentState.NbDays - SignupDate + InitialLibrary.NbDaysToSignup + 1;
             for (int i = 0; i < nbDaysToShip; i++)
             {

@@ -12,7 +12,7 @@ namespace hashcode._2020
         {
             List<string> entries = new List<string>() { "d_metropolis" };
             //Use only one solver
-            SolutionFinder<Solution, State> finder = new SolutionFinder<Solution, State>(@"data\a_example.txt", new StateFactory(), new DumbSolver(true));
+            SolutionFinder<Solution, State> finder = new SolutionFinder<Solution, State>(@"data\a_example.txt", new StateFactory(), new FirstSolver(true));
 
             //Mix solvers
             //SolutionMixer mixer = new SolutionMixer("e_high_bonus", new StateFactory(), new SolverFactory().GetAllSolvers());

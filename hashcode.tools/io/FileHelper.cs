@@ -25,11 +25,11 @@ namespace hashcode.tools
             {
                 if (append)
                 {
-                    File.AppendAllText(Path.GetFileName(fileName),content);
+                    File.AppendAllText(fileName,content);
                 }
                 else
                 {
-                    File.WriteAllText(Path.GetFileName(fileName),content);
+                    File.WriteAllText(fileName,content);
                 }
             }
             catch (IOException e)
