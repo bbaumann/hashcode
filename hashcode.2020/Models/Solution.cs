@@ -9,10 +9,16 @@ namespace hashcode._2020.Models
     public class Solution : ISolution<State>
     {
         State state = null;
+
+        /// <summary>
+        /// Ordered Libraries by signup date
+        /// </summary>
+        public List<WorkingLibrary> Libraries { get; set; }
         
         public Solution(State state)
         {
             this.state = state;
+            Libraries = new List<WorkingLibrary>();
         }
 
         /// <summary>
