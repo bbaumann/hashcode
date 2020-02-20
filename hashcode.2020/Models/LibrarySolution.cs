@@ -66,7 +66,7 @@ namespace hashcode._2020.Models
         public void ShipBooks()
         {
             //TODO improve perf
-            int nbDaysToShip = _state.NbDays - SignupDate - InitialLibrary.NbDaysToSignup + 1;
+            int nbDaysToShip = _state.NbDays - SignupDate - InitialLibrary.NbDaysToSignup;
             for (int i = 0; i < nbDaysToShip; i++)
             {
                 ShipBooksForOneDay();
