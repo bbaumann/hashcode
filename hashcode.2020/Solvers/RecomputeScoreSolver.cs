@@ -51,6 +51,12 @@ namespace hashcode._2020.Solvers
             // idee: prise en compte des doublons
             while (date < State.NbDays && librariesToHandle.Any())
             {
+                librariesToHandle.RemoveAll(
+                    l => (date + l.NbDaysToSignup >= State.NbDays)
+                    );
+                if (!librariesToHandle.Any())
+                    break;
+
                 librariesToHandle.ForEach(x =>
                 {
                     var bookEfficientCount = 0;
