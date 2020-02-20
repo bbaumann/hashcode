@@ -13,7 +13,7 @@ namespace hashcode._2020.Models
         public int NbDaysToSignup { get; set; }
 
         public int Freq { get; set; }
-        public SortedList<int,Book> Books { get; set; }
+        public List<Book> Books { get; set; }
 
         // intermediaires de scoring
         public int EfficiencyDayCount { get; set; }

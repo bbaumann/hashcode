@@ -52,7 +52,7 @@ namespace hashcode._2020.Solvers
                 var bookEfficientCount = 0;
                 foreach (var book in x.Books)
                 {
-                    if (book.Value.Score < minRelevantBookScore)
+                    if (book.Score < minRelevantBookScore)
                     {
                         break;
                     }

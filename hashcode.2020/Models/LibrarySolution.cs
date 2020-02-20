@@ -38,7 +38,7 @@ namespace hashcode._2020.Models
 
         private void ShipBooksForOneDay()
         {
-            var newBooks = this.InitialLibrary.Books.Skip(_currentBookIndex)?.Take(InitialLibrary.Freq)?.Select(b => b.Value)?.ToList();
+            var newBooks = this.InitialLibrary.Books.Skip(_currentBookIndex)?.Take(InitialLibrary.Freq)?.ToList();
             if (newBooks != null)
             {
                 OrderedBooksToScan.AddRange(newBooks);

@@ -49,7 +49,7 @@ namespace hashcode._2020.Models
                         Id = libIndex
                     });
                 } else {
-                    state.Libraries[state.Libraries.Count() - 1].Books = new SortedList<int,Book>();
+                    state.Libraries[state.Libraries.Count() - 1].Books = new List<Book>();
                     for (var i_in = 0; i_in < inputs.Length; ++i_in)
                     {
                         var id = int.Parse(inputs[i_in]);
@@ -58,8 +58,9 @@ namespace hashcode._2020.Models
                             Id = id,
                             Score = state.ScoreByBookId[id]
                         };
-                        state.Libraries[libIndex].Books.Add(book.Id,book);
+                        state.Libraries[libIndex].Books.Add(book);
                     }
+                    state.Libraries[libIndex].Books.Sort();
                     ++libIndex;
                 }
 
