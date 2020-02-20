@@ -8,8 +8,15 @@ namespace hashcode._2020.Solvers
 {
     public class FirstSolver : BaseSolver
     {
-        public FirstSolver(bool isDeterministic) : base(isDeterministic)
+
+        double _thresholdFactor;
+
+        double _signupWeightFactor;
+
+        public FirstSolver(bool isDeterministic, double thresholdFactor, double signupWeightFactor) : base(isDeterministic)
         {
+            _thresholdFactor = thresholdFactor;
+            _signupWeightFactor = signupWeightFactor;
         }
 
 
@@ -20,12 +27,23 @@ namespace hashcode._2020.Solvers
 
             // calcul du seuil d'interet des livres
             long totalScore = 0;
+            int maxScore = -1;
+            int minScore = -1;
             foreach (var scoreKV in StateFactory.CurrentState.ScoreByBookId)
             {
                 totalScore += scoreKV.Value;
+                if (maxScore == -1 || maxScore < scoreKV.Value)
+                {
+                    maxScore = scoreKV.Value;
+                }
+                if (minScore == -1 || minScore > scoreKV.Value)
+                {
+                    minScore = scoreKV.Value;
+                }
             }
             var meanScore = (int)(totalScore / StateFactory.CurrentState.ScoreByBookId.Count());
-            minRelevantBookScore = meanScore;
+            // a tuner !!!!
+            minRelevantBookScore = meanScore; // thresholdFactor avec maxScore et minScore
 
             // idee: prise en compte des doublons
 
@@ -47,7 +65,7 @@ namespace hashcode._2020.Solvers
             StateFactory.CurrentState.Libraries.ForEach(x =>
             {
                 // a tuner !!!!!!
-                x.Priority = x.EfficiencyDayCount - x.NbDaysToSignup;
+                x.Priority = x.EfficiencyDayCount - _signupWeightFactor * x.NbDaysToSignup;
             });
 
             var date = 0;
