@@ -71,9 +71,10 @@ namespace hashcode._2020.Solvers
             });
 
             var date = 0;
+            var bookAlreadyUsed = new Dictionary<int, bool>();
             res.Libraries = State.Libraries.OrderByDescending(x => x.Priority).Select(x =>
             {
-                var result = new WorkingLibrary(x, date, State);
+                var result = new WorkingLibrary(x, date, State, bookAlreadyUsed);
                 result.ShipBooks();
                 date += x.NbDaysToSignup;
                 return result;

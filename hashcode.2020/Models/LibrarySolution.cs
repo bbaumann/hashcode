@@ -22,12 +22,18 @@ namespace hashcode._2020.Models
 
         private State _state;
 
-        public WorkingLibrary(Library initialLibrary, int signupDate, State state)
+        private Dictionary<int, bool> _bookAlreadyUsed;
+
+
+
+        public WorkingLibrary(Library initialLibrary, int signupDate, State state,
+            Dictionary<int, bool> bookAlreadyUsed)
         {
             InitialLibrary = initialLibrary;
             SignupDate = signupDate;
             OrderedBooksToScan = new List<Book>();
             _state = state;
+            _bookAlreadyUsed = bookAlreadyUsed;
         }
 
         public bool CanSignUp(int signUpDate)
@@ -38,11 +44,22 @@ namespace hashcode._2020.Models
 
         private void ShipBooksForOneDay()
         {
-            var newBooks = this.InitialLibrary.Books.Skip(_currentBookIndex)?.Take(InitialLibrary.Freq)?.ToList();
-            if (newBooks != null)
+            int toTake = InitialLibrary.Freq;
+            var newBooks = new List<Book>();
+            for (; _currentBookIndex < InitialLibrary.Books.Count; _currentBookIndex++)
+            {
+                var currentBook = InitialLibrary.Books[_currentBookIndex];
+                if (_bookAlreadyUsed.ContainsKey(currentBook.Id))
+                    continue;
+                newBooks.Add(currentBook);
+                toTake--;
+                if (toTake <= 0)
+                    break;
+            }
+            _currentBookIndex++;
+            if (newBooks != null && newBooks.Any())
             {
                 OrderedBooksToScan.AddRange(newBooks);
-                _currentBookIndex += newBooks.Count;
             }
         }
 
@@ -53,6 +70,10 @@ namespace hashcode._2020.Models
             for (int i = 0; i < nbDaysToShip; i++)
             {
                 ShipBooksForOneDay();
+            }
+            foreach (var bookToShip in OrderedBooksToScan)
+            {
+                _bookAlreadyUsed[bookToShip.Id] = true;
             }
         }
     }
