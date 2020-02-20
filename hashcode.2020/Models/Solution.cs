@@ -28,6 +28,12 @@ namespace hashcode._2020.Models
         public string ToOutputFormat()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine(Libraries.Count.ToString());
+            foreach (var library in Libraries)
+            {
+                sb.AppendLine($"{library.Id} {library.OrderedBooksToScan.Count}");
+                sb.AppendLine(String.Join(' ', library.OrderedBooksToScan.Select(b => b.Id.ToString())));
+            }
             return sb.ToString();
         }
 
