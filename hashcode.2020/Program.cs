@@ -20,6 +20,8 @@ namespace hashcode._2020
 
             //SolutionFinder<Solution, State>.launchOnSeveralFiles(entries, new StateFactory(), new SolverFactory());
 
+            finder.Run();
+
             string dummy = Console.ReadLine();
 
         }

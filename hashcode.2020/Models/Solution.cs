@@ -14,7 +14,7 @@ namespace hashcode._2020.Models
         /// Ordered Libraries by signup date
         /// </summary>
         public List<WorkingLibrary> Libraries { get; set; }
-        
+
         public Solution(State state)
         {
             this.state = state;

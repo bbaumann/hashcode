@@ -35,6 +35,10 @@ namespace hashcode.tools
                         Logger.Log(iteration.ToString());
                     //System.out.println(iteration);
                     Solution next = solver.Solve(s);
+                    if (next == null)
+                    {
+                        return;
+                    }
                     double score = next.Value(s);
                     if (score > bestValue){
                         bestSolutionCount++;
