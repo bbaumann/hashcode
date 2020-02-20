@@ -47,7 +47,8 @@ namespace hashcode._2020.Models
                     state.Libraries.Add(new Library
                     {
                         Freq = int.Parse(inputs[2]),
-                        NbDaysToSignup = int.Parse(inputs[1])
+                        NbDaysToSignup = int.Parse(inputs[1]),
+                        Id = libIndex
                     });
                 } else {
                     state.Libraries[state.Libraries.Count() - 1].Books = new SortedList<Book,Book>();
