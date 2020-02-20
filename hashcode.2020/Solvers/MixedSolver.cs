@@ -21,5 +21,10 @@ namespace hashcode._2020.Solvers
             //We should mix the solvers here according to the weight
             Logger.Log("Mixed Strategy with " + String.Join(", ",SolversWithWeight.Select(s => s.Item1.GetType().Name + " x" + s.Item2)));
         }
+
+        protected override void DoSolve(Solution res)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

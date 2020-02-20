@@ -8,6 +8,8 @@ namespace hashcode._2020.Models
 {
     public class StateFactory : IStateFactory<State>
     {
+        public static State CurrentState { get; private set; }
+
         /// <summary>
         /// Parse the problem input and returns a State modelizing it
         /// </summary>
@@ -62,7 +64,7 @@ namespace hashcode._2020.Models
 
                 isLibDef = !isLibDef;
             }
-
+            CurrentState = state;
             return state;
         }
     }

@@ -25,8 +25,12 @@ namespace hashcode._2020.Solvers
             Solution res = new Solution(state);
             //Update res with whatever is the solution
 
+            DoSolve(res);
+
             ExecutionCount++;
             return res;
         }
+
+        protected abstract void DoSolve(Solution res);
     }
 }

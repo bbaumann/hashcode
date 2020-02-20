@@ -6,6 +6,8 @@ namespace hashcode._2020.Models
 {
     public class Library
     {
+        public int Id { get; set; }
+
         public int NbBooks { get; set; }
 
         public int NbDaysToSignup { get; set; }
