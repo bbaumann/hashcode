@@ -36,9 +36,13 @@ namespace hashcode._2020.Models
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public double Value(State s)
+        public int Value(State s)
         {
-            return 0d;
+            ///TODO affiner pour savoir si le livre sera vraiment scanné ou pas
+            return Libraries
+                .SelectMany(l => l.OrderedBooksToScan)
+                .Distinct()
+                .Sum(b => b.Score);
         }
     }
 }

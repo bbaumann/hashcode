@@ -12,5 +12,15 @@ namespace hashcode._2020.Models
         {
             return Score.CompareTo(other.Score);
         }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Id.Equals(((Book)obj).Id);
+        }
     }
 }
