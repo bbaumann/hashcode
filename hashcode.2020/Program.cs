@@ -24,7 +24,7 @@ namespace hashcode._2020
             {
                 foreach (var entry in entries)
                 {
-                    SolutionFinder<Solution, State> finder = new SolutionFinder<Solution, State>(entry, new StateFactory(), new FirstSolver(true, 1d, weightValue));
+                    SolutionFinder<Solution, State> finder = new SolutionFinder<Solution, State>(entry, new StateFactory(), new RecomputeScoreSolver(true, 1d, weightValue));
                     finder.SetPostfix($"W{weightValue}");
                     finder.Run();
                 }

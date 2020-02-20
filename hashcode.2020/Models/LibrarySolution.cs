@@ -49,7 +49,7 @@ namespace hashcode._2020.Models
             for (; _currentBookIndex < InitialLibrary.Books.Count; _currentBookIndex++)
             {
                 var currentBook = InitialLibrary.Books[_currentBookIndex];
-                if (_bookAlreadyUsed.ContainsKey(currentBook.Id))
+                if (_bookAlreadyUsed != null && _bookAlreadyUsed.ContainsKey(currentBook.Id))
                     continue;
                 newBooks.Add(currentBook);
                 toTake--;
@@ -71,9 +71,13 @@ namespace hashcode._2020.Models
             {
                 ShipBooksForOneDay();
             }
-            foreach (var bookToShip in OrderedBooksToScan)
+
+            if (_bookAlreadyUsed != null)
             {
-                _bookAlreadyUsed[bookToShip.Id] = true;
+                foreach (var bookToShip in OrderedBooksToScan)
+                {
+                    _bookAlreadyUsed[bookToShip.Id] = true;
+                }
             }
         }
     }
