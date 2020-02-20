@@ -20,7 +20,7 @@ namespace hashcode._2020.Models
 
         public override bool Equals(object obj)
         {
-            return Id.Equals(((Book)obj).Id);
+            return Id == ((Book)obj).Id;
         }
     }
 }

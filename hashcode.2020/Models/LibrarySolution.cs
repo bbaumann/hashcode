@@ -20,17 +20,20 @@ namespace hashcode._2020.Models
         //without duplicates
         public List<Book> OrderedBooksToScan { get; private set; }
 
-        public WorkingLibrary(Library initialLibrary, int signupDate)
+        private State _state;
+
+        public WorkingLibrary(Library initialLibrary, int signupDate, State state)
         {
             InitialLibrary = initialLibrary;
             SignupDate = signupDate;
             OrderedBooksToScan = new List<Book>();
+            _state = state;
         }
 
         public bool CanSignUp(int signUpDate)
         {
             int dateOfFirstBookShipping = signUpDate + InitialLibrary.NbDaysToSignup;
-            return dateOfFirstBookShipping <= StateFactory.CurrentState.NbDays;
+            return dateOfFirstBookShipping <= _state.NbDays;
         }
 
         private void ShipBooksForOneDay()
@@ -46,7 +49,7 @@ namespace hashcode._2020.Models
         public void ShipBooks()
         {
             //TODO improve perf
-            int nbDaysToShip = StateFactory.CurrentState.NbDays - SignupDate + InitialLibrary.NbDaysToSignup + 1;
+            int nbDaysToShip = _state.NbDays - SignupDate + InitialLibrary.NbDaysToSignup + 1;
             for (int i = 0; i < nbDaysToShip; i++)
             {
                 ShipBooksForOneDay();

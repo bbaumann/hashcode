@@ -29,7 +29,7 @@ namespace hashcode._2020.Solvers
             long totalScore = 0;
             int maxScore = -1;
             int minScore = -1;
-            foreach (var scoreKV in StateFactory.CurrentState.ScoreByBookId)
+            foreach (var scoreKV in State.ScoreByBookId)
             {
                 totalScore += scoreKV.Value;
                 if (maxScore == -1 || maxScore < scoreKV.Value)
@@ -41,13 +41,13 @@ namespace hashcode._2020.Solvers
                     minScore = scoreKV.Value;
                 }
             }
-            var meanScore = (int)(totalScore / StateFactory.CurrentState.ScoreByBookId.Count());
+            var meanScore = (int)(totalScore / State.ScoreByBookId.Count());
             // a tuner !!!!
             minRelevantBookScore = meanScore; // thresholdFactor avec maxScore et minScore
 
             // idee: prise en compte des doublons
 
-            StateFactory.CurrentState.Libraries.ForEach(x =>
+            State.Libraries.ForEach(x =>
             {
                 var bookEfficientCount = 0;
                 foreach (var book in x.Books)
@@ -62,16 +62,16 @@ namespace hashcode._2020.Solvers
             });
 
             // scoring by library
-            StateFactory.CurrentState.Libraries.ForEach(x =>
+            State.Libraries.ForEach(x =>
             {
                 // a tuner !!!!!!
                 x.Priority = x.EfficiencyDayCount - _signupWeightFactor * x.NbDaysToSignup;
             });
 
             var date = 0;
-            res.Libraries = StateFactory.CurrentState.Libraries.OrderByDescending(x => x.Priority).Select(x =>
+            res.Libraries = State.Libraries.OrderByDescending(x => x.Priority).Select(x =>
             {
-                var result = new WorkingLibrary(x, date);
+                var result = new WorkingLibrary(x, date, State);
                 result.ShipBooks();
                 date += x.NbDaysToSignup;
                 return result;

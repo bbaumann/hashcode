@@ -11,6 +11,9 @@ namespace hashcode._2020.Solvers
     {
         public virtual bool IsDeterministic { get; }
         protected virtual int ExecutionCount { get; set; } = 0;
+
+        protected virtual State State { get; private set; }
+
         public BaseSolver(bool isDeterministic)
         {
             IsDeterministic = isDeterministic;
@@ -18,6 +21,7 @@ namespace hashcode._2020.Solvers
 
         public Solution Solve(State state)
         {
+            State = state;
             if (IsDeterministic && ExecutionCount > 0)
                 return null;
             //Real stuff happens here
