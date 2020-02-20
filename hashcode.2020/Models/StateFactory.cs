@@ -1,6 +1,7 @@
 ﻿using hashcode.tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace hashcode._2020.Models
@@ -41,13 +42,13 @@ namespace hashcode._2020.Models
 
                 if (isLibDef)
                 {
-                    state.Libraries[libIndex] = new Library
+                    state.Libraries.Add(new Library
                     {
                         Freq = int.Parse(inputs[2]),
                         NbDaysToSignup = int.Parse(inputs[1])
-                    };
+                    });
                 } else {
-                    state.Libraries[libIndex].Books = new List<Book>();
+                    state.Libraries[state.Libraries.Count() - 1].Books = new List<Book>();
                     for (var i_in = 0; i_in < inputs.Length; ++i_in)
                     {
                         var id = int.Parse(inputs[i_in]);

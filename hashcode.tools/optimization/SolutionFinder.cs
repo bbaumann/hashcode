@@ -12,19 +12,19 @@ namespace hashcode.tools
         protected readonly State s;
         protected readonly String inputFile;
         protected ISolver<State, Solution> solver;
-        
+
         private int iteration = 0;
         protected int bestSolutionCount = 0;
         protected double bestValue;
         protected Solution best;
-        
+
         public SolutionFinder(String inputFile, IStateFactory<State> factory,
         ISolver<State, Solution> solver) {
             this.solver = solver;
-            s = factory.fromString(hashcode.tools.FileHelper.ReadFileContent(inputFile+".in"));
+            s = factory.fromString(hashcode.tools.FileHelper.ReadFileContent(inputFile));
             this.inputFile = inputFile;
         }
-        
+
         public void Run(){
             best = default(Solution);
             bestValue = Double.MinValue;
@@ -101,12 +101,12 @@ namespace hashcode.tools
         protected void writeSolution() {
             FileHelper.WriteFileContent(inputFile+"_"+bestValue+"_"+bestSolutionCount+".out", best.ToOutputFormat(), false);
         }
-        
+
         public static void launchOnSeveralFiles(List<String> filenames, IStateFactory<State> factory,
         ISolverFactory<State, Solution> generatorFactory){
             IEnumerable<SolutionFinder<Solution,State>> finders = filenames.Select(f =>
                 new SolutionFinder<Solution,State>(f,factory,generatorFactory.newInstance()));
-            
+
             Parallel.Invoke(finders.Select(f => new Action(f.Run)).ToArray());
         }
     }

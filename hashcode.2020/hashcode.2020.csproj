@@ -10,4 +10,10 @@
     <ProjectReference Include="..\hashcode.tools\hashcode.tools.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="data\a_example.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

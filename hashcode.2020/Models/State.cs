@@ -14,12 +14,12 @@ namespace hashcode._2020.Models
 
         public int NbDays { get; set; }
 
-        public Dictionary<int,int> ScoreByBookId { get; set; }
+        public Dictionary<int, int> ScoreByBookId { get; set; } = new Dictionary<int, int>();
 
-        public List<Library> Libraries { get; set; }
+        public List<Library> Libraries { get; set; } = new List<Library>();
 
         public State()
         {
-        }        
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace hashcode.tools
             string res = null;
             try
             {
-                res = File.ReadAllText(Path.GetFileName(fileName));
+                res = File.ReadAllText(fileName);
             }
             catch (IOException e)
             {
