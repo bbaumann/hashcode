@@ -19,8 +19,8 @@ namespace hashcode._2020
                 @"data\f_libraries_of_the_world.txt"
             };
             //Use only one solver
-            var thresholdFactorValues = new[] { 0.3d }; // 0.3d
-            var weightValues = new []{ 2000d };
+            var thresholdFactorValues = new[] { 1d }; // 0.3d
+            var weightValues = new []{ 10d };
             foreach (var thresholdFactorValue in thresholdFactorValues)
             {
                 foreach (var weightValue in weightValues)

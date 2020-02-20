@@ -18,6 +18,8 @@ namespace hashcode._2020.Models
         // intermediaires de scoring
         public int EfficiencyDayCount { get; set; }
 
+        public long EfficiencyScoreTotal { get; set; }
+
         public double Priority { get; set; }
     }
 }

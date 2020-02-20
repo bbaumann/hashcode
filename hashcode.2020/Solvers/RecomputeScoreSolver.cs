@@ -60,6 +60,7 @@ namespace hashcode._2020.Solvers
                 librariesToHandle.ForEach(x =>
                 {
                     var bookEfficientCount = 0;
+                    var total = 0;
                     foreach (var book in x.Books)
                     {
                         if (book.Score < minRelevantBookScore)
@@ -67,19 +68,22 @@ namespace hashcode._2020.Solvers
                             break;
                         }
                         ++bookEfficientCount;
+                        total += book.Score;
                     }
                     x.EfficiencyDayCount = bookEfficientCount / x.Freq;
+                    x.EfficiencyScoreTotal = total;
                     var dayLeftCount = State.NbDays - date - x.NbDaysToSignup;
                     if (x.EfficiencyDayCount > dayLeftCount)
                     {
                         x.EfficiencyDayCount = dayLeftCount;
                     }
+                    
                 });
                 // scoring by library
                 librariesToHandle.ForEach(x =>
                 {
                 // a tuner !!!!!!
-                x.Priority = x.EfficiencyDayCount - _signupWeightFactor * x.NbDaysToSignup;
+                x.Priority = (x.EfficiencyDayCount - _signupWeightFactor * x.NbDaysToSignup)*x.EfficiencyScoreTotal;
                 // prendre en compte ce qu'il reste dans le temps imparti
                 // dans la limite de la moitie du delai
                 });
