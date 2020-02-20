@@ -47,11 +47,11 @@ namespace hashcode._2020.Solvers
             StateFactory.CurrentState.Libraries.ForEach(x =>
             {
                 // a tuner !!!!!!
-                x.Priority = x.EfficiencyDayCount - 2 * x.NbDaysToSignup;
+                x.Priority = x.EfficiencyDayCount - x.NbDaysToSignup;
             });
 
             var date = 0;
-            res.Libraries = StateFactory.CurrentState.Libraries.OrderBy(x => x.Priority).Select(x =>
+            res.Libraries = StateFactory.CurrentState.Libraries.OrderByDescending(x => x.Priority).Select(x =>
             {
                 var result = new WorkingLibrary(x, date);
                 result.ShipBooks();

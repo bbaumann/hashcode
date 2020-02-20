@@ -10,7 +10,7 @@ namespace hashcode._2020.Models
 
         public int CompareTo(Book other)
         {
-            return Score.CompareTo(other.Score);
+            return -Score.CompareTo(other.Score);
         }
 
         public override int GetHashCode()
