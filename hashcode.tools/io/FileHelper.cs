@@ -3,7 +3,7 @@ using System.IO;
 
 namespace hashcode.tools
 {
-    public static class FîleHelper
+    public static class FileHelper
     {
         public static string ReadFileContent(string fileName)
         {
@@ -16,7 +16,7 @@ namespace hashcode.tools
             {
                 Logger.Log(e);
             }
-            return res;            
+            return res;
         }
 
         public static void WriteFileContent(string fileName, string content, bool append)
@@ -35,7 +35,7 @@ namespace hashcode.tools
             catch (IOException e)
             {
                 Logger.Log(e);
-            }  
+            }
         }
     }
 }

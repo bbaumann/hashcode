@@ -21,7 +21,7 @@ namespace hashcode.tools
         public SolutionFinder(String inputFile, IStateFactory<State> factory,
         ISolver<State, Solution> solver) {
             this.solver = solver;
-            s = factory.fromString(hashcode.tools.FîleHelper.ReadFileContent(inputFile+".in"));
+            s = factory.fromString(hashcode.tools.FileHelper.ReadFileContent(inputFile+".in"));
             this.inputFile = inputFile;
         }
         
@@ -99,7 +99,7 @@ namespace hashcode.tools
         }
 
         protected void writeSolution() {
-            FîleHelper.WriteFileContent(inputFile+"_"+bestValue+"_"+bestSolutionCount+".out", best.ToOutputFormat(), false);
+            FileHelper.WriteFileContent(inputFile+"_"+bestValue+"_"+bestSolutionCount+".out", best.ToOutputFormat(), false);
         }
         
         public static void launchOnSeveralFiles(List<String> filenames, IStateFactory<State> factory,
