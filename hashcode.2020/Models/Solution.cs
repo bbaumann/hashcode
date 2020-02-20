@@ -27,9 +27,10 @@ namespace hashcode._2020.Models
         /// <returns></returns>
         public string ToOutputFormat()
         {
+            var libToOutput = Libraries.Where(l => l.OrderedBooksToScan.Any()).ToList();
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(Libraries.Count.ToString());
-            foreach (var library in Libraries)
+            sb.AppendLine(libToOutput.Count.ToString());
+            foreach (var library in libToOutput)
             {
                 sb.AppendLine($"{library.Id} {library.OrderedBooksToScan.Count}");
                 sb.AppendLine(String.Join(' ', library.OrderedBooksToScan.Select(b => b.Id.ToString())));
