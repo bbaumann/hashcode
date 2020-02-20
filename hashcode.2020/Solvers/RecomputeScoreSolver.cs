@@ -43,7 +43,7 @@ namespace hashcode._2020.Solvers
             }
             var meanScore = (int)(totalScore / State.ScoreByBookId.Count());
             // a tuner !!!!
-            minRelevantBookScore = meanScore; // thresholdFactor avec maxScore et minScore
+            minRelevantBookScore = (int)(meanScore * _thresholdFactor); // thresholdFactor avec maxScore et minScore
 
             var date = 0;
             var librariesToHandle = new List<Library>();
@@ -63,6 +63,11 @@ namespace hashcode._2020.Solvers
                         ++bookEfficientCount;
                     }
                     x.EfficiencyDayCount = bookEfficientCount / x.Freq;
+                    var dayLeftCount = State.NbDays - date - x.NbDaysToSignup;
+                    if (x.EfficiencyDayCount > dayLeftCount)
+                    {
+                        x.EfficiencyDayCount = dayLeftCount;
+                    }
                 });
                 // scoring by library
                 librariesToHandle.ForEach(x =>

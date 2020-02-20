@@ -43,7 +43,7 @@ namespace hashcode._2020.Solvers
             }
             var meanScore = (int)(totalScore / State.ScoreByBookId.Count());
             // a tuner !!!!
-            minRelevantBookScore = meanScore; // thresholdFactor avec maxScore et minScore
+            minRelevantBookScore = (int)(((double)meanScore) * _thresholdFactor); // thresholdFactor avec maxScore et minScore
 
             // idee: prise en compte des doublons
 
