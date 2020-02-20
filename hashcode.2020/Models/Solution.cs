@@ -42,7 +42,7 @@ namespace hashcode._2020.Models
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public int Value(State s)
+        public double Value(State s)
         {
             ///TODO affiner pour savoir si le livre sera vraiment scanné ou pas
             return Libraries
