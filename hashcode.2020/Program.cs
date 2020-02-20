@@ -10,12 +10,24 @@ namespace hashcode._2020
     {
         static void Main(string[] args)// C:\fpeltier\hashcode\hashacode_20
         {
-            List<string> entries = new List<string>() { @"data\a_example.txt", @"data\b_read_on.txt", @"data\c_incunabula.txt", @"data\d_tough_choices.txt", @"data\e_so_many_books.txt", @"data\f_libraries_of_the_world.txt" };
+            List<string> entries = new List<string>() {
+                @"data\a_example.txt",
+                @"data\b_read_on.txt",
+                @"data\c_incunabula.txt",
+                @"data\d_tough_choices.txt",
+                @"data\e_so_many_books.txt",
+                @"data\f_libraries_of_the_world.txt"
+            };
             //Use only one solver
-            foreach (var entry in entries)
+            var weightValues = new []{ 2000d };
+            foreach (var weightValue in weightValues)
             {
-                SolutionFinder<Solution, State> finder = new SolutionFinder<Solution, State>(entry, new StateFactory(), new FirstSolver(true,1d,1d));
-                finder.Run();
+                foreach (var entry in entries)
+                {
+                    SolutionFinder<Solution, State> finder = new SolutionFinder<Solution, State>(entry, new StateFactory(), new FirstSolver(true, 1d, weightValue));
+                    finder.SetPostfix($"W{weightValue}");
+                    finder.Run();
+                }
             }
 
             //Mix solvers

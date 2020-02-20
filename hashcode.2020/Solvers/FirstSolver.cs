@@ -66,6 +66,8 @@ namespace hashcode._2020.Solvers
             {
                 // a tuner !!!!!!
                 x.Priority = x.EfficiencyDayCount - _signupWeightFactor * x.NbDaysToSignup;
+                // prendre en compte ce qu'il reste dans le temps imparti
+                // dans la limite de la moitie du delai
             });
 
             var date = 0;

@@ -18,7 +18,9 @@ namespace hashcode._2020.Solvers
         {
             return new List<BaseSolver>()
             {
-                new DumbSolver(false)
+                new FirstSolver(true,1d,1.5d),
+                new FirstSolver(true,1d,0.2d),
+                new FirstSolver(true,1d,0.5d)
             };
         }
 

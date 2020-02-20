@@ -17,6 +17,7 @@ namespace hashcode.tools
         protected int bestSolutionCount = 0;
         protected double bestValue;
         protected Solution best;
+        private string _postfix = "";
 
         public SolutionFinder(String inputFile, IStateFactory<State> factory,
         ISolver<State, Solution> solver) {
@@ -25,7 +26,13 @@ namespace hashcode.tools
             this.inputFile = inputFile;
         }
 
-        public void Run(){
+        public void SetPostfix(string postfix)
+        {
+            _postfix = postfix;
+        }
+
+        public void Run()
+        {
             best = default(Solution);
             bestValue = Double.MinValue;
             while (true){
@@ -45,7 +52,7 @@ namespace hashcode.tools
                         bestValue = score;
                         best = next;
                         Console.WriteLine("New solution found for "+inputFile+" with score:"+score);
-                        writeSolution();
+                        writeSolution(_postfix);
                     }
                 }
                 catch (Exception e){
@@ -102,8 +109,8 @@ namespace hashcode.tools
             Parallel.Invoke(toRun.ToArray());
         }
 
-        protected void writeSolution() {
-            FileHelper.WriteFileContent(inputFile+"_"+bestValue+"_"+bestSolutionCount+".out", best.ToOutputFormat(), false);
+        protected void writeSolution(string postfix = "") {
+            FileHelper.WriteFileContent(inputFile+"_"+bestValue+"_"+bestSolutionCount+postfix+".out", best.ToOutputFormat(), false);
         }
 
         public static void launchOnSeveralFiles(List<String> filenames, IStateFactory<State> factory,
