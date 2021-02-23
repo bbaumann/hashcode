@@ -10,7 +10,7 @@ namespace hashcode._2021.practice.Models
     {
         State state = null;
 
-        List<Delivery> Deliveries = new List<Delivery>();
+        public List<Delivery> Deliveries = new List<Delivery>();
 
         public Solution(State state)
         {
