@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace hashcode._2021.practice.Models
 {
-    class Delivery
+    public class Delivery
     {
         public List<Pizza> Pizzas = new List<Pizza>();
 
