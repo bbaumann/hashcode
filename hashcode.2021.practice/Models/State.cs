@@ -8,8 +8,8 @@ namespace hashcode._2021.practice.Models
     /// </summary>
     public class State
     {
-        int[] teamsCount = new int[] {0,0,0,0,0};
-        List<Pizza> pizzas = new List<Pizza>();
+        public int[] teamsCount = new [] {0,0,0,0,0};
+        public List<Pizza> pizzas = new List<Pizza>();
 
         public State()
         {

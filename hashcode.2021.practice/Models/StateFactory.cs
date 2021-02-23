@@ -15,7 +15,24 @@ namespace hashcode._2021.practice.Models
         /// <returns></returns>
         public State fromString(string s)
         {
-            State state = new State();
+            var state = new State();
+
+            var lines = s.Split('\n');
+            var input = lines[0].TrimEnd().Split(' ');
+
+            var pizzaCount = int.Parse(input[0]);
+            state.teamsCount = new[] {0, 0, int.Parse(input[1]), int.Parse(input[2]), int.Parse(input[3])};
+
+            for (var pizzaId = 0; pizzaId < pizzaCount; ++pizzaId)
+            {
+                input = lines[1 + pizzaId].TrimEnd().Split(' ');
+                state.pizzas.Add(new Pizza
+                {
+                    Id = pizzaId,
+                    Ingredients = input.Skip(1).ToList()
+                });
+            }
+
             return state;
         }
     }
