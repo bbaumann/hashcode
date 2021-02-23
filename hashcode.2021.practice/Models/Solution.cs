@@ -24,6 +24,11 @@ namespace hashcode._2021.practice.Models
         public string ToOutputFormat()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine(Deliveries.Count.ToString());
+            foreach (Delivery d in Deliveries) {
+                sb.AppendLine(d.ToString());
+            }
+
             return sb.ToString();
         }
 
@@ -34,7 +39,7 @@ namespace hashcode._2021.practice.Models
         /// <returns></returns>
         public double Value(State s)
         {
-            return 0;
+            return Deliveries.Sum(d => d.Score());
         }
     }
 }
