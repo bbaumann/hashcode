@@ -14,17 +14,18 @@ namespace hashcode._2021.practice.Solvers
 
         protected override void DoSolve(Solution res)
         {
-            res.Deliveries.AddRange(CreateDeliveriesForTeamOfSize(2));
-            res.Deliveries.AddRange(CreateDeliveriesForTeamOfSize(3));
-            res.Deliveries.AddRange(CreateDeliveriesForTeamOfSize(4));
+            res.Deliveries.AddRange(CreateDeliveriesForTeamOfSize(2, 0, out var end));
+            res.Deliveries.AddRange(CreateDeliveriesForTeamOfSize(3, end, out end));
+            res.Deliveries.AddRange(CreateDeliveriesForTeamOfSize(4, end, out end));
         }
 
-        private List<Delivery> CreateDeliveriesForTeamOfSize(int size)
+        private List<Delivery> CreateDeliveriesForTeamOfSize(int size, int start, out int end)
         {
             var deliveries = new List<Delivery>();
-            for (var i = 0; i < State.teamsCount[size]; ++i)
+            int i;
+            for (i = 0; i < State.teamsCount[size]; i += size)
             {
-                var pizzasToDeliver = State.pizzas.Take(size).ToList();
+                var pizzasToDeliver = State.pizzas.Skip(start + i).Take(size).ToList();
                 if (pizzasToDeliver.Count == size)
                 {
                     deliveries.Add(new Delivery
@@ -34,10 +35,12 @@ namespace hashcode._2021.practice.Solvers
                 }
                 else
                 {
+                    end = start + i;
                     return deliveries;
                 }
             }
 
+            end = start + i + size;
             return deliveries;
         }
     }
