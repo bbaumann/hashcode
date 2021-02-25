@@ -44,7 +44,15 @@ namespace hashcode._2021.Models
         /// <returns></returns>
         public double Value(State s)
         {
-            return 0;
+            s.ClearSchedules();
+
+            foreach (var schedule in Schedules)
+            {
+                schedule.Intersection.Schedule = schedule;
+            }
+
+            long score =  s.GetScore();
+            return score;
         }
     }
 }

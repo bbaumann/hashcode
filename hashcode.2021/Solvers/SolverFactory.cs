@@ -25,7 +25,7 @@ namespace hashcode._2021.Solvers
         }
         public ISolver<State, Solution> newInstance()
         {
-            return new PrivilegeShortestSolver(true);
+            return new DumbSolver(true);
         }
     }
 }

@@ -24,5 +24,19 @@ namespace hashcode._2021.Models
             Cars = new Queue<Car>();
             TrafficLight = new TrafficLight();
         }
+
+        internal bool IsGreen(int time) => Destination.Schedule.GreenStreet(time) == Name;
+
+        internal bool MoveCar(int time)
+        {
+            Car nextCar = null;
+            if (!Cars.TryPeek(out nextCar))
+                return false;
+            var hasMoved = nextCar.MoveToNextStreet(time);
+            if (!hasMoved)
+                return hasMoved;
+            Cars.Dequeue();
+            return hasMoved;
+        }
     }
 }

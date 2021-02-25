@@ -10,10 +10,16 @@ namespace hashcode._2021.Models
         public Intersection Intersection { get; set; }
         public List<Tuple<string,int>> GreenDurationByStreetName { get; set; }
 
+        public Schedule()
+        {
+        }
+
         private int cycleDuration => GreenDurationByStreetName.Sum(t => t.Item2);
 
         public string GreenStreet(int time)
         {
+            if (GreenDurationByStreetName == null)
+                return null;
             var pointInCycle = time % cycleDuration;
             int accu = 0;
             foreach (var cycleStep in GreenDurationByStreetName)

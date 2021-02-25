@@ -51,7 +51,7 @@ always valid, i.e. the streets will be connected by intersections.
 
             State state = new State();
             string[] lines = s.Split('\n');
-            string[] inputs = lines[i].Split(' ');
+            string[] inputs = lines[i].Trim().Split(' ');
             //Parse the first line here here
 
             var simulationDuration = int.Parse(inputs[0]);
@@ -68,7 +68,7 @@ always valid, i.e. the streets will be connected by intersections.
 
             for (i=1; i< nbStreets+1; i++)
             {
-                inputs = lines[i].Split(' ');
+                inputs = lines[i].Trim().Split(' ');
                 var sourceId = int.Parse(inputs[0]);
                 Intersection source = null;
 
@@ -113,12 +113,12 @@ always valid, i.e. the streets will be connected by intersections.
 
             for (i = nbStreets + 1; i < nbStreets + 1 + nbCars; i++)
             {
-                inputs = lines[i].Split(' ');
+                inputs = lines[i].Trim().Split(' ');
 
                 var nbStreetsForThisCar = int.Parse(inputs[0]);
 
                 Car car = new Car();
-                for (int j = 1; j < nbStreetsForThisCar; j++)
+                for (int j = 1; j < nbStreetsForThisCar+1; j++)
                 {
                     string streetName = inputs[j];
                     car.AddStep(streets[streetName]);

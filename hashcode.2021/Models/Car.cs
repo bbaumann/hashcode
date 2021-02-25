@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text;
@@ -24,11 +25,22 @@ namespace hashcode._2021.Models
 
         public void AddStep(Street s)
         {
+            if (!Steps.Any())
+            {
+                s.Cars.Enqueue(this);
+            }
             Steps.Add(s);
             StepsTravelTime += s.TravelTime;
         }
 
-        public bool IsFinished => CurrentStreetIndex == Steps.Count - 1;
+        public bool IsFinished => CurrentStreetIndex == Steps.Count; //Need to end the last step
+
+        public int GetScore(int bonusPoint, int simulationDuration)
+        {
+            if (!IsFinished)
+                return 0;
+            return bonusPoint + simulationDuration - CurrentStreetStartupTime;
+        }
 
         /// <summary>
         /// returns true if car moved
@@ -38,11 +50,16 @@ namespace hashcode._2021.Models
         {
             if (IsFinished)
                 throw new Exception("car should have been removed from list");
-            if (currentTime - CurrentStreetStartupTime < CurrentStreet.TravelTime)
+            if (CurrentStreetIndex != 0
+                &&
+                currentTime - CurrentStreetStartupTime < CurrentStreet.TravelTime
+                )
                 return false;
 
             CurrentStreetIndex++;
             CurrentStreetStartupTime = currentTime;
+            if (!IsFinished)
+                CurrentStreet.Cars.Enqueue(this);
             return true;
         }
 
