@@ -18,6 +18,7 @@ namespace hashcode._2021.Solvers
         {
             foreach (Car car in State.Cars)
             {
+                
                 foreach (Street street in car.Steps)
                 {
                     if (!IncomingCarsCountPerStreet.ContainsKey(street.Destination))
@@ -41,11 +42,24 @@ namespace hashcode._2021.Solvers
             {
                 Dictionary<Street, int> incomingCarsCount = IncomingCarsCountPerStreet[intersection];
 
-                res.Schedules.Add(new Schedule
+                int totalCarsPassingThrough = incomingCarsCount.Values.Sum();
+
+                if (incomingCarsCount.Count > 10)
                 {
-                    Intersection = intersection,
-                    GreenDurationByStreetName = incomingCarsCount.Keys.Select(street => new Tuple<string, int>(street.Name, incomingCarsCount[street])).ToList()
-                });
+                    // We have to rotate fast to avoid long rotations
+                    res.Schedules.Add(new Schedule
+                    {
+                        Intersection = intersection,
+                        GreenDurationByStreetName = incomingCarsCount.Keys.Select(street => new Tuple<string, int>(street.Name, 1)).ToList()
+                    });
+                } else
+                {
+                    res.Schedules.Add(new Schedule
+                    {
+                        Intersection = intersection,
+                        GreenDurationByStreetName = incomingCarsCount.Keys.Select(street => new Tuple<string, int>(street.Name, incomingCarsCount[street])).ToList()
+                    });
+                }
             }
         }
     }
