@@ -117,13 +117,13 @@ always valid, i.e. the streets will be connected by intersections.
 
                 var nbStreetsForThisCar = int.Parse(inputs[0]);
 
+                Car car = new Car();
                 for (int j = 1; j < nbStreetsForThisCar; j++)
                 {
-                    Car car = new Car();
                     string streetName = inputs[j];
                     car.AddStep(streets[streetName]);
-                    state.AddCar(car);
                 }
+                state.AddCar(car);
             }
 
             return state;
