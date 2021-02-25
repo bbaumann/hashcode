@@ -10,11 +10,17 @@ namespace hashcode._2021.Models
         //note immutable
         public List<Street> Steps { get; }
 
+        public long StepsTravelTime { get; private set; }
+
         public Car()
         {
             Steps = new List<Street>();
         }
 
-        public void AddStep(Street s) => Steps.Add(s);
+        public void AddStep(Street s)
+        {
+            Steps.Add(s);
+            StepsTravelTime += s.TravelTime;
+        }
     }
 }

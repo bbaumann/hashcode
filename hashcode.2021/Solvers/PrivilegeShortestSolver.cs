@@ -16,9 +16,9 @@ namespace hashcode._2021.Solvers
 
         protected override void DoSolve(Solution res)
         {
-            var sortedCarsByStepsLength = State.Cars.OrderBy(car => car.Steps.Count).ToList();
+            var sortedCarsByStepsTravelTime = State.Cars.OrderBy(car => car.StepsTravelTime).ToList();
 
-            var carsToOptimize = sortedCarsByStepsLength.Take((int) (sortedCarsByStepsLength.Count * Threshold)).ToList();
+            var carsToOptimize = sortedCarsByStepsTravelTime.Take((int) (sortedCarsByStepsTravelTime.Count * Threshold)).ToList();
 
             var stepsToOptimize = carsToOptimize.SelectMany(car => car.Steps).ToList();
 
