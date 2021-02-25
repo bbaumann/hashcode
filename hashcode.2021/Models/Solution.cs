@@ -23,6 +23,16 @@ namespace hashcode._2021.Models
         public string ToOutputFormat()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine(Schedules.Count.ToString());
+            foreach (Schedule schedule in Schedules)
+            {
+                sb.AppendLine(schedule.Intersection.Id.ToString());
+                sb.AppendLine(schedule.GreenDurationByStreetName.Count.ToString());
+                foreach (Tuple<string, int> durationByStreetName in schedule.GreenDurationByStreetName)
+                {
+                    sb.AppendLine($"{ durationByStreetName.Item1} {durationByStreetName.Item2.ToString()}");
+                }
+            }
             return sb.ToString();
         }
 
