@@ -7,8 +7,8 @@ namespace hashcode._2021.Models
     public class Intersection
     {
         public int Id { get; set; }
-        public List<string> IncomingStreetNames { get; set; }
-        public List<string> OutgoingStreetNames { get; set; }
+        public List<string> IncomingStreetNames { get; }
+        public List<string> OutgoingStreetNames { get; }
 
         public Schedule Schedule { get; set; }
 

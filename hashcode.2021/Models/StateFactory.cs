@@ -81,7 +81,7 @@ always valid, i.e. the streets will be connected by intersections.
                 var destinationId = int.Parse(inputs[1]);
                 Intersection destination = null;
 
-                if (!intersections.TryGetValue(destinationId, out source))
+                if (!intersections.TryGetValue(destinationId, out destination))
                 {
                     destination = new Intersection
                     {
@@ -114,7 +114,7 @@ always valid, i.e. the streets will be connected by intersections.
 
                 var nbStreetsForThisCar = int.Parse(inputs[0]);
 
-                for (int j = 0; j < nbStreetsForThisCar; j++)
+                for (int j = 1; j < nbStreetsForThisCar; j++)
                 {
                     Car car = new Car();
                     string streetName = inputs[j];
