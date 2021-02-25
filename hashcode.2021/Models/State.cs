@@ -13,6 +13,10 @@ namespace hashcode._2021.Models
 
         public List<Car> Cars { get; }
 
+        public int BonusPoint { get; set; }
+
+        public int SimulationDuration { get; set; }
+
         public State()
         {
             Streets = new List<Street>();

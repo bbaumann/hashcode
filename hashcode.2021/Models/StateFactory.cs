@@ -60,6 +60,9 @@ always valid, i.e. the streets will be connected by intersections.
             var nbCars = int.Parse(inputs[3]);
             var bonusPoint = int.Parse(inputs[4]);
 
+            state.BonusPoint = bonusPoint;
+            state.SimulationDuration = simulationDuration;
+
             Dictionary<int, Intersection> intersections = new Dictionary<int, Intersection>();
             Dictionary<string, Street> streets = new Dictionary<string, Street>();
 
