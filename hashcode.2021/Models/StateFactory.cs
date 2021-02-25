@@ -111,7 +111,7 @@ always valid, i.e. the streets will be connected by intersections.
                 destination.AddIncomingStreet(street);
             }
 
-            for (i = nbStreets + 1; i < lines.Length; i++)
+            for (i = nbStreets + 1; i < nbStreets + 1 + nbCars; i++)
             {
                 inputs = lines[i].Split(' ');
 
