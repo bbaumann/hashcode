@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace hashcode._2021.Models
@@ -8,12 +9,18 @@ namespace hashcode._2021.Models
     /// </summary>
     public class State
     {
-        public List<Street> Streets { get; set; }
+        public List<Street> Streets { get; }
 
-        public List<Car> Cars { get; set; }
+        public List<Car> Cars { get; }
 
         public State()
         {
+            Streets = new List<Street>();
+            Cars = new List<Car>();
         }
+
+        public void AddStreet(Street s) => Streets.Add(s);
+
+        public void AddCar(Car car) => Cars.Add(car);
     }
 }

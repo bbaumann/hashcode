@@ -47,9 +47,11 @@ always valid, i.e. the streets will be connected by intersections.
 
              * */
 
+            int i = 0;
+
             State state = new State();
             string[] lines = s.Split('\n');
-            string[] inputs = lines[0].Split(' ');
+            string[] inputs = lines[i].Split(' ');
             //Parse the first line here here
 
             var simulationDuration = int.Parse(inputs[0]);
@@ -59,8 +61,9 @@ always valid, i.e. the streets will be connected by intersections.
             var bonusPoint = int.Parse(inputs[4]);
 
             Dictionary<int, Intersection> intersections = new Dictionary<int, Intersection>();
+            Dictionary<string, Street> streets = new Dictionary<string, Street>();
 
-            for (int i=1; i< nbStreets+1; i++)
+            for (i=1; i< nbStreets+1; i++)
             {
                 inputs = lines[i].Split(' ');
                 var sourceId = int.Parse(inputs[0]);
@@ -98,6 +101,26 @@ always valid, i.e. the streets will be connected by intersections.
                     TravelTime = travelDuration
                 };
 
+                state.AddStreet(street);
+                streets.Add(name, street);
+
+                source.AddOutgoingStreet(street);
+                destination.AddIncomingStreet(street);
+            }
+
+            for (i = nbStreets + 1; i < nbCars + 1; i++)
+            {
+                inputs = lines[i].Split(' ');
+
+                var nbStreetsForThisCar = int.Parse(inputs[0]);
+
+                for (int j = 0; j < nbStreetsForThisCar; j++)
+                {
+                    Car car = new Car();
+                    string streetName = inputs[j];
+                    car.AddStep(streets[streetName]);
+                    state.AddCar(car);
+                }
             }
 
             return state;

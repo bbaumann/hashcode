@@ -12,6 +12,14 @@ namespace hashcode._2021.Models
 
         public Schedule Schedule { get; set; }
 
+        public Intersection()
+        {
+            IncomingStreetNames = new List<string>();
+            OutgoingStreetNames = new List<string>();
+        }
 
+        internal void AddOutgoingStreet(Street street) => OutgoingStreetNames.Add(street.Name);
+
+        internal void AddIncomingStreet(Street street) => IncomingStreetNames.Add(street.Name);
     }
 }
