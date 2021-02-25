@@ -9,6 +9,7 @@ namespace hashcode._2021.Models
     public class Solution : ISolution<State>
     {
         State state = null;
+        List<Schedule> Schedules = new List<Schedule>();
 
         public Solution(State state)
         {
