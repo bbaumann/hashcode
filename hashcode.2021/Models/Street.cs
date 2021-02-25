@@ -15,8 +15,14 @@ namespace hashcode._2021.Models
 
         public Intersection Destination { get; set; }
 
-        public TrafficLight TrafficLight { get; set; }
+        public TrafficLight TrafficLight { get; }
 
-        public Queue<Car> Cars { get; set; }
+        public Queue<Car> Cars { get; }
+
+        public Street()
+        {
+            Cars = new Queue<Car>();
+            TrafficLight = new TrafficLight();
+        }
     }
 }
