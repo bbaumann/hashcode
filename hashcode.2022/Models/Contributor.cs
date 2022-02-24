@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static hashcode._2022.Models.Project;
 
 namespace hashcode._2022.Models
 {
@@ -37,8 +38,10 @@ namespace hashcode._2022.Models
                 Skills[skill] = 1;
         }
 
-        public void IncreaseSkillIfNeeded(string skill, int expectedLevel)
+        public void IncreaseSkillIfNeeded(Role role)
         {
+            var skill = role.Name;
+            var expectedLevel = role.Level;
             if (!HasSkill(skill, expectedLevel))
                 IncreaseSkill(skill);
             if (HasExactSkill(skill, expectedLevel))

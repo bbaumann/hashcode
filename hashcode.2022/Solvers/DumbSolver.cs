@@ -34,8 +34,8 @@ namespace hashcode._2022.Solvers
                 {
                     var candidates =
                         res.ContributorRepository
-                            .FindContributors(role.Key, role.Value)
-                            .Except(projectDone.ContributorByRole.Values)
+                            .FindContributors(role)
+                            .Except(projectDone.ContributorByRole.Select( tup => tup.Item2))
                             .ToList();
 
                     //TODO choix du winner
@@ -45,7 +45,7 @@ namespace hashcode._2022.Solvers
                         canDoProject = false;
                         break;
                     }
-                    projectDone.ContributorByRole[role.Key] = winner;
+                    projectDone.ContributorByRole.Add((role,winner));
                 }
 
                 if (!canDoProject)
