@@ -31,13 +31,12 @@ namespace hashcode._2022.Models
 
         public void DoProject(ProjectDone project)
         {
-
-            project._startDate = project.ContributorByRole.Values.Max(contrib => contrib._availableDate);
+            project._startDate = project.ContributorByRole.Max( tup => tup.Item2._availableDate);
 
             foreach (var (role, contributor) in project.ContributorByRole)
             {
                 contributor._availableDate = project._startDate + project._proj.Duration;
-                contributor._contrib.IncreaseSkillIfNeeded(role, project._proj.RequiredRoles[role]);
+                contributor._contrib.IncreaseSkillIfNeeded(role);
             }
 
             _projectDone.Add(project);
@@ -54,10 +53,9 @@ namespace hashcode._2022.Models
 
             foreach (var project in _projectDone)
             {
-                var contrib = new List<string>();
                 sb.AppendLine(project._proj.Name);
-                project._proj.OrderedRoles.ForEach(r => contrib.Add(project.ContributorByRole[r]._contrib.Name));
-                sb.AppendLine(string.Join(' ', contrib));
+                //project._proj.RequiredRoles.ForEach(r => contrib.Add(project.ContributorByRole[r]._contrib.Name));
+                sb.AppendLine(string.Join(' ', project.ContributorByRole.Select(tup => tup.Item2._contrib.Name)));
             }
             return sb.ToString();
         }

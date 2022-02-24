@@ -11,20 +11,16 @@ namespace hashcode._2022.Models
         public int Score { get; set; }
         public int BestBefore { get; set; }
 
-        public Dictionary<string, int> RequiredRoles { get; init; }
-
-        public List<string> OrderedRoles { get; init; }
+        public List<Role> RequiredRoles { get; init; }
 
         public Project()
         {
-            RequiredRoles = new Dictionary<string, int>();
-            OrderedRoles = new List<string>();
+            RequiredRoles = new List<Role>();
         }
 
         public void AddRequiredRole(string role, int level)
         {
-            RequiredRoles[role] = level;
-            OrderedRoles.Add(role);
+            RequiredRoles.Add(new Role { Name = role, Level = level });
         }
 
 
@@ -32,7 +28,6 @@ namespace hashcode._2022.Models
         {
             public Project _proj;
             public int _startDate = -1;
-            public Dictionary<string, ContributorAffected> ContributorByRole = new Dictionary<string, ContributorAffected>();
 
             public int getScoreWithStartDate(int sd)
             {
@@ -42,6 +37,14 @@ namespace hashcode._2022.Models
                 score = Math.Max(_proj.Score - malus, 0);
                 return score;
             }
+
+            public List<(Role, ContributorAffected)> ContributorByRole = new List<(Role, ContributorAffected)>();
+        }
+
+        public class Role
+        {
+            public string Name { get; set; }
+            public int Level { get; set; }
         }
     }
 }
