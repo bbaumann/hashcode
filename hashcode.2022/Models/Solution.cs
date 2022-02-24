@@ -41,8 +41,16 @@ namespace hashcode._2022.Models
         /// <returns></returns>
         public string ToOutputFormat()
         {
-            //TODO
-            return null;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(_projectDone.Count.ToString());
+
+            foreach (var project in _projectDone)
+            {
+                var contrib = new List<string>();
+                project._proj.OrderedRoles.ForEach(r => contrib.Add(project._contributor[r].Name);
+                sb.AppendLine(string.Join(' ', contrib));
+            }
+            return sb.ToString();
         }
 
         /// <summary>
