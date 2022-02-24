@@ -18,6 +18,7 @@ namespace hashcode._2022.Solvers
         {
             var proj = res.ProjectRepository.GetNext();
 
+            //go back to project available
             while (proj != null)
             {
                 var projectDone = new ProjectDone()
@@ -35,6 +36,7 @@ namespace hashcode._2022.Solvers
                             .Except(projectDone.ContributorByRole.Values)
                             .ToList();
 
+                    //TODO choix du winner
                     var winner = candidates.FirstOrDefault();
                     if (winner == null)
                     {
@@ -46,20 +48,14 @@ namespace hashcode._2022.Solvers
 
                 if (!canDoProject)
                 {
+                    //TODO choix du projet
                     proj = res.ProjectRepository.GetNext();
                     continue;
                 }
 
-                projectDone._startDate = projectDone.ContributorByRole.Values.Max(contrib => contrib._availableDate);
+                res.DoProject(projectDone);
 
-                foreach (var (role,contributor) in projectDone.ContributorByRole)
-                {
-                    contributor._availableDate = projectDone._startDate + projectDone._proj.Duration;
-                    contributor._contrib.IncreaseSkillIfNeeded(role, projectDone._proj.RequiredRoles[role]);
-                }
-
-                res._projectDone.Add(projectDone);
-
+                //TODO choix du projet
                 proj = res.ProjectRepository.GetNext();
             }
         }

@@ -13,7 +13,7 @@ namespace hashcode._2022.Models
         public ProjectRepository ProjectRepository { get; init; }
 
 
-        public List<ProjectDone> _projectDone = new List<ProjectDone> ();
+        private List<ProjectDone> _projectDone = new List<ProjectDone> ();
 
         State state = null;
         public Solution(State state)
@@ -27,6 +27,20 @@ namespace hashcode._2022.Models
 
             ProjectRepository = new ProjectRepository(state.Projects);
 
+        }
+
+        public void DoProject(ProjectDone project)
+        {
+
+            project._startDate = project.ContributorByRole.Values.Max(contrib => contrib._availableDate);
+
+            foreach (var (role, contributor) in project.ContributorByRole)
+            {
+                contributor._availableDate = project._startDate + project._proj.Duration;
+                contributor._contrib.IncreaseSkillIfNeeded(role, project._proj.RequiredRoles[role]);
+            }
+
+            _projectDone.Add(project);
         }
 
         /// <summary>
