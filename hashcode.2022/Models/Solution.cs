@@ -12,7 +12,7 @@ namespace hashcode._2022.Models
         {
             public Project _proj;
             public int _startDate = -1;
-            public List<Contributor> _contributor = new List<Contributor> ();
+            public Dictionary<string, Contributor> _contributor = new Dictionary<string, Contributor>();
         }
 
         List<ProjectDone> _projectDone = new List<ProjectDone> ();
