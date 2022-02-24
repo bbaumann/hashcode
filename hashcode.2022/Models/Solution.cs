@@ -8,14 +8,26 @@ namespace hashcode._2022.Models
 {
     public class Solution : ISolution<State>
     {
-        class ProjectDone
+        public class ProjectDone
         {
             public Project _proj;
             public int _startDate = -1;
             public Dictionary<string, Contributor> _contributor = new Dictionary<string, Contributor>();
         }
 
-        List<ProjectDone> _projectDone = new List<ProjectDone> ();
+
+        public class ContributorAffected
+        {
+            public Contributor _contrib;
+
+            public int _availableDate = 0;
+
+            public Dictionary<Project, string> _affectedRole = new Dictionary<Project, string>();
+
+        }
+
+        public List<ContributorAffected> _affectContr = new List<ContributorAffected>();
+        public List<ProjectDone> _projectDone = new List<ProjectDone> ();
 
         State state = null;
         public Solution(State state)
