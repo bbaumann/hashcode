@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace hashcode._2022.Models
 {
-    class Project
+    public class Project
     {
         public string Name { get; set; }
         public int Duration { get; set; }

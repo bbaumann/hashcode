@@ -15,18 +15,64 @@ namespace hashcode._2022.Models
         /// <returns></returns>
         public State fromString(string s)
         {
-            int i = 0;
+            int lineIndex = 0;
 
             State state = new State();
             string[] lines = s.Split('\n');
-            string[] inputs = lines[i].Trim().Split(' ');
+            string[] inputs = lines[lineIndex].Trim().Split(' ');
             //Parse the first line here here
 
-            var simulationDuration = int.Parse(inputs[0]);
-            var nbIntersections = int.Parse(inputs[1]); //ids from 0 to I-1
-            var nbStreets = int.Parse(inputs[2]);
-            var nbCars = int.Parse(inputs[3]);
-            var bonusPoint = int.Parse(inputs[4]);
+            var nbContrib = int.Parse(inputs[0]);
+            var nbProjects = int.Parse(inputs[1]); //ids from 0 to I-1
+
+            lineIndex++;
+
+            for (int contribIndex = 0; contribIndex < nbContrib ; contribIndex++)
+            {
+                var line = lines[lineIndex];
+                var input = line.Trim().Split(' ');
+                var contributor = new Contributor();
+                contributor.Name = input[0];
+                var nbSkills = int.Parse(input[1]);
+                
+                lineIndex++;
+                
+                for (int j = 0; j < nbSkills; j++)
+                {
+                    var skillLine = lines[lineIndex];
+                    var skillInput = skillLine.Trim().Split(' ');
+                    contributor.AddSkill(skillInput[0], int.Parse(skillInput[1]));
+                    
+                    lineIndex++;
+                }
+            }
+
+            for (int projectIndex = 0; projectIndex < nbProjects; projectIndex++)
+            {
+                var line = lines[lineIndex];
+                var input = line.Trim().Split(' ');
+                var project = new Project()
+                {
+                    Name = input[0],
+                    Duration = int.Parse(input[1]),
+                    Score = int.Parse(input[2]),
+                    BestBefore = int.Parse(input[3])
+                };
+
+                var nbRoles = int.Parse(input[4]);
+
+                lineIndex++;
+
+                for (int rolesIndex = 0; rolesIndex < nbRoles; rolesIndex++)
+                {
+                    var roleLine = lines[lineIndex];
+                    var roleInput = roleLine.Trim().Split(' ');
+
+                    project.RequiredRoles[roleInput[0]] = int.Parse(roleInput[1]);
+
+                    lineIndex++;
+                }
+            }
 
             return state;
         }
