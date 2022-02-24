@@ -72,9 +72,7 @@ namespace hashcode._2022.Models
             int score = 0;
             foreach(var projDone in _projectDone)
             {
-                int endDate = projDone._startDate + projDone._proj.Duration;
-                int malus = Math.Max(endDate - projDone._proj.BestBefore, 0);
-                score += Math.Max(projDone._proj.Score - malus, 0);
+                score += projDone.getScoreWithStartDate(projDone._startDate);
             }
 
             return score;

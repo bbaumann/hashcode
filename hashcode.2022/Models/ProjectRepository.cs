@@ -23,8 +23,27 @@ namespace hashcode._2022.Models
             return res;
         }
 
+
         public void AddProject(Project project) => Projects.Add(project);
 
         public int NbProjects => Projects.Count;
+
+        public Project GetNextBestScore()
+        {
+            int score = 0;
+            Project bestProj = null;
+            foreach(var p in Projects)
+            {
+                if(p.Score > score )
+                {
+                    bestProj = p;
+                    score = p.Score;
+                }
+            }
+            if (bestProj != null)
+                Projects.Remove(bestProj);
+            return bestProj;
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
 
 namespace hashcode._2022.Models
 {
@@ -31,6 +33,15 @@ namespace hashcode._2022.Models
             public Project _proj;
             public int _startDate = -1;
             public Dictionary<string, ContributorAffected> ContributorByRole = new Dictionary<string, ContributorAffected>();
+
+            public int getScoreWithStartDate(int sd)
+            {
+                int score = 0;
+                int endDate = sd + _proj.Duration;
+                int malus = Math.Max(endDate - _proj.BestBefore, 0);
+                score = Math.Max(_proj.Score - malus, 0);
+                return score;
+            }
         }
     }
 }

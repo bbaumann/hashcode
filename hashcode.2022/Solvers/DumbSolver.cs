@@ -21,7 +21,7 @@ namespace hashcode._2022.Solvers
             int nbFailsInARow = 0;
 
             //go back to project available
-            while (proj != null && nbFailsInARow < res.ProjectRepository.NbProjects)
+            while (proj != null && nbFailsInARow <= res.ProjectRepository.NbProjects)
             {
                 var projectDone = new ProjectDone()
                 {
@@ -39,7 +39,25 @@ namespace hashcode._2022.Solvers
                             .ToList();
 
                     //TODO choix du winner
-                    var winner = candidates.FirstOrDefault();
+                    int scoreMax = 0;
+                    int skillLevel = 1000000000;
+                    ContributorAffected winner = null;
+                    foreach (var candidate in candidates)
+                    {
+                        int scoreWithCandidate = projectDone.getScoreWithStartDate(candidate._availableDate);
+                        if(scoreMax < scoreWithCandidate)
+                        {
+                            scoreMax = scoreWithCandidate;
+                            winner = candidate;
+                            skillLevel = candidate._contrib.Skills[role.Key];
+                        } else if(scoreMax == scoreWithCandidate && skillLevel > candidate._contrib.Skills[role.Key]) // todo only less skilled candidate
+                        {
+                            scoreMax = scoreWithCandidate;
+                            winner = candidate;
+                            skillLevel = candidate._contrib.Skills[role.Key];
+                        }
+                    }
+                    
                     if (winner == null)
                     {
                         canDoProject = false;
