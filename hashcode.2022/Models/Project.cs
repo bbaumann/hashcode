@@ -45,6 +45,8 @@ namespace hashcode._2022.Models
         {
             public string Name { get; set; }
             public int Level { get; set; }
+
+            public bool _isUpdated = false;
         }
     }
 }

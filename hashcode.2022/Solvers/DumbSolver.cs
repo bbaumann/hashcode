@@ -23,6 +23,7 @@ namespace hashcode._2022.Solvers
             //go back to project available
             while (proj != null && nbFailsInARow <= res.ProjectRepository.NbProjects)
             {
+                
                 var projectDone = new ProjectDone()
                 {
                     _proj = proj
@@ -32,9 +33,15 @@ namespace hashcode._2022.Solvers
 
                 foreach (var role in proj.RequiredRoles)
                 {
+                    var realLevel = new Role { Level = role.Level, Name = role.Name };
+                    if (projectDone.ContributorByRole.Any(tup => tup.Item2._contrib.HasSkill(role.Name, role.Level)))
+                    {
+                        realLevel.Level--;
+                    }
+
                     var candidates =
                         res.ContributorRepository
-                            .FindContributors(role)
+                            .FindContributors(realLevel)
                             .Except(projectDone.ContributorByRole.Select( tup => tup.Item2))
                             .ToList();
 
@@ -45,16 +52,15 @@ namespace hashcode._2022.Solvers
                     foreach (var candidate in candidates)
                     {
                         int scoreWithCandidate = projectDone.getScoreWithStartDate(candidate._availableDate);
-                        if(scoreMax < scoreWithCandidate)
+                        if ( 
+                            (scoreMax < scoreWithCandidate)
+                            //|| (scoreMax == scoreWithCandidate && skillLevel == 0)
+                            || (scoreMax == scoreWithCandidate && skillLevel > candidate._contrib.GetSkillLevel(role.Name))
+                            )
                         {
                             scoreMax = scoreWithCandidate;
                             winner = candidate;
-                            skillLevel = candidate._contrib.Skills[role.Name];
-                        } else if(scoreMax == scoreWithCandidate && skillLevel > candidate._contrib.Skills[role.Name]) // todo only less skilled candidate
-                        {
-                            scoreMax = scoreWithCandidate;
-                            winner = candidate;
-                            skillLevel = candidate._contrib.Skills[role.Name];
+                            skillLevel = candidate._contrib.GetSkillLevel(role.Name);
                         }
                     }
                     
@@ -63,6 +69,7 @@ namespace hashcode._2022.Solvers
                         canDoProject = false;
                         break;
                     }
+
                     projectDone.ContributorByRole.Add((role,winner));
                 }
 
