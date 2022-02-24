@@ -10,8 +10,13 @@ namespace hashcode._2022.Models
     /// </summary>
     public class State
     {
+        public List<Project> Projects { get; init; }
+        public List<Contributor> Contributors { get; init; }
+
         public State()
         {
+            Contributors = new List<Contributor>();
+            Projects = new List<Project>();
         }
 
     }
