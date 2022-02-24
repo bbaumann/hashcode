@@ -17,6 +17,18 @@ namespace hashcode._2022.Models
             Skills[skill] = level;
         }
 
+        public bool HasSkill(string skill, int level)
+        {
+            if (level == 0) return true;
+            return Skills.TryGetValue(skill, out var value) && value >= level;
+        }
+
+        public bool HasExactSkill(string skill, int level)
+        {
+            if (level == 0) return !Skills.ContainsKey(skill);
+            return Skills.TryGetValue(skill, out var value) && value == level;
+        }
+
         public void IncreaseSkill(string skill)
         {
             if (Skills.ContainsKey(skill))
