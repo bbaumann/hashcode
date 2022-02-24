@@ -12,11 +12,11 @@ namespace hashcode._2022
         {
             List<string> entries = new List<string>() {
                 @"data\a.txt",
-                @"data\b.txt",
-                @"data\c.txt",
-                @"data\d.txt",
-                @"data\e.txt",
-                @"data\f.txt"
+                //@"data\b.txt",
+                //@"data\c.txt",
+                //@"data\d.txt",
+                //@"data\e.txt",
+                //@"data\f.txt"
             };
             
             SolutionFinder<Solution, State>.launchOnSeveralFiles(entries, new StateFactory(), new SolverFactory());

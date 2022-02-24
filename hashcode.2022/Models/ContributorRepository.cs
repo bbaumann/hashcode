@@ -20,6 +20,7 @@ namespace hashcode._2022.Models
             => contributors.Where(c => c._contrib.HasSkill(skill, level)).ToList();
 
         public List<ContributorAffected> FindAvailableContributors(string skill, int level, int date)
-            => contributors.Where(c => c._contrib.HasSkill(skill, level) && c._availableDate < date).ToList();
+            => contributors.Where(c => c._contrib.HasSkill(skill, level) && c._availableDate <= date).ToList();
+
     }
 }

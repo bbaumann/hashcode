@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace hashcode._2022.Models
 {
@@ -13,7 +9,7 @@ namespace hashcode._2022.Models
         public int Score { get; set; }
         public int BestBefore { get; set; }
 
-        public Dictionary<string,int> RequiredRoles { get; init; }
+        public Dictionary<string, int> RequiredRoles { get; init; }
 
         public List<string> OrderedRoles { get; init; }
 
@@ -27,6 +23,14 @@ namespace hashcode._2022.Models
         {
             RequiredRoles[role] = level;
             OrderedRoles.Add(role);
+        }
+
+
+        public class ProjectDone
+        {
+            public Project _proj;
+            public int _startDate = -1;
+            public Dictionary<string, ContributorAffected> ContributorByRole = new Dictionary<string, ContributorAffected>();
         }
     }
 }

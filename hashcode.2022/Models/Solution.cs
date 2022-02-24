@@ -3,31 +3,30 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using static hashcode._2022.Models.Project;
 
 namespace hashcode._2022.Models
 {
     public class Solution : ISolution<State>
     {
         public ContributorRepository ContributorRepository { get; init; }
+        public ProjectRepository ProjectRepository { get; init; }
 
-        public class ProjectDone
-        {
-            public Project _proj;
-            public int _startDate = -1;
-            public Dictionary<string, Contributor> _contributor = new Dictionary<string, Contributor>();
-        }
 
-        public List<ContributorAffected> _affectContr = new List<ContributorAffected>();
         public List<ProjectDone> _projectDone = new List<ProjectDone> ();
 
         State state = null;
         public Solution(State state)
         {
             this.state = state;
+            ContributorRepository = new ContributorRepository();
             foreach (var contributor in state.Contributors)
             {
                 ContributorRepository.AddContributor(contributor);
             }
+
+            ProjectRepository = new ProjectRepository(state.Projects);
+
         }
 
         /// <summary>
@@ -42,7 +41,8 @@ namespace hashcode._2022.Models
             foreach (var project in _projectDone)
             {
                 var contrib = new List<string>();
-                project._proj.OrderedRoles.ForEach(r => contrib.Add(project._contributor[r].Name));
+                sb.AppendLine(project._proj.Name);
+                project._proj.OrderedRoles.ForEach(r => contrib.Add(project.ContributorByRole[r]._contrib.Name));
                 sb.AppendLine(string.Join(' ', contrib));
             }
             return sb.ToString();

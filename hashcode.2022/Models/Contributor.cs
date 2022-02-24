@@ -37,6 +37,14 @@ namespace hashcode._2022.Models
                 Skills[skill] = 1;
         }
 
+        public void IncreaseSkillIfNeeded(string skill, int expectedLevel)
+        {
+            if (!HasSkill(skill, expectedLevel))
+                IncreaseSkill(skill);
+            if (HasExactSkill(skill, expectedLevel))
+                IncreaseSkill(skill);
+        }
+
         public Contributor()
         {
             Skills = new Dictionary<string, int>();
