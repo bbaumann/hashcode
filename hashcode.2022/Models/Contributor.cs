@@ -27,6 +27,7 @@ namespace hashcode._2022.Models
 
         public Contributor()
         {
+            Skills = new Dictionary<string, int>();
         }
 
         public Contributor(Contributor other)

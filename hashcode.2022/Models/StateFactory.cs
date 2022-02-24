@@ -45,6 +45,8 @@ namespace hashcode._2022.Models
                     
                     lineIndex++;
                 }
+
+                state.Contributors.Add(contributor);
             }
 
             for (int projectIndex = 0; projectIndex < nbProjects; projectIndex++)
@@ -72,6 +74,8 @@ namespace hashcode._2022.Models
 
                     lineIndex++;
                 }
+
+                state.Projects.Add(project);
             }
 
             return state;
