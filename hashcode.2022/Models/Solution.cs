@@ -47,7 +47,7 @@ namespace hashcode._2022.Models
             foreach (var project in _projectDone)
             {
                 var contrib = new List<string>();
-                project._proj.OrderedRoles.ForEach(r => contrib.Add(project._contributor[r].Name);
+                project._proj.OrderedRoles.ForEach(r => contrib.Add(project._contributor[r].Name));
                 sb.AppendLine(string.Join(' ', contrib));
             }
             return sb.ToString();
