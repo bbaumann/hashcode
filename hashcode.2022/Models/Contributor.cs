@@ -24,5 +24,15 @@ namespace hashcode._2022.Models
             else
                 Skills[skill] = 1;
         }
+
+        public Contributor()
+        {
+        }
+
+        public Contributor(Contributor other)
+        {
+            Name = other.Name;
+            Skills = new Dictionary<string,int>(other.Skills);
+        }
     }
 }
