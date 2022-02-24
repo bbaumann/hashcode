@@ -8,22 +8,13 @@ namespace hashcode._2022.Models
 {
     public class Solution : ISolution<State>
     {
+        public ContributorRepository ContributorRepository { get; init; }
+
         public class ProjectDone
         {
             public Project _proj;
             public int _startDate = -1;
             public Dictionary<string, Contributor> _contributor = new Dictionary<string, Contributor>();
-        }
-
-
-        public class ContributorAffected
-        {
-            public Contributor _contrib;
-
-            public int _availableDate = 0;
-
-            public Dictionary<Project, string> _affectedRole = new Dictionary<Project, string>();
-
         }
 
         public List<ContributorAffected> _affectContr = new List<ContributorAffected>();
@@ -33,6 +24,10 @@ namespace hashcode._2022.Models
         public Solution(State state)
         {
             this.state = state;
+            foreach (var contributor in state.Contributors)
+            {
+                ContributorRepository.AddContributor(contributor);
+            }
         }
 
         /// <summary>

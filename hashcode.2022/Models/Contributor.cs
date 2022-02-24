@@ -48,4 +48,13 @@ namespace hashcode._2022.Models
             Skills = new Dictionary<string,int>(other.Skills);
         }
     }
+
+    public class ContributorAffected
+    {
+        public Contributor _contrib;
+
+        public int _availableDate = 0;
+
+        public Dictionary<Project, string> _affectedRole = new Dictionary<Project, string>();
+    }
 }
