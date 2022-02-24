@@ -70,7 +70,7 @@ namespace hashcode._2022.Models
                     var roleLine = lines[lineIndex];
                     var roleInput = roleLine.Trim().Split(' ');
 
-                    project.RequiredRoles[roleInput[0]] = int.Parse(roleInput[1]);
+                    project.AddRequiredRole(roleInput[0], int.Parse(roleInput[1]));
 
                     lineIndex++;
                 }

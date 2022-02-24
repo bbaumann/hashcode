@@ -15,9 +15,18 @@ namespace hashcode._2022.Models
 
         public Dictionary<string,int> RequiredRoles { get; init; }
 
+        public List<string> OrderedRoles { get; init; }
+
         public Project()
         {
             RequiredRoles = new Dictionary<string, int>();
+            OrderedRoles = new List<string>();
+        }
+
+        public void AddRequiredRole(string role, int level)
+        {
+            RequiredRoles[role] = level;
+            OrderedRoles.Add(role);
         }
     }
 }
