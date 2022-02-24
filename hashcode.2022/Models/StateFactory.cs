@@ -15,8 +15,6 @@ namespace hashcode._2022.Models
         /// <returns></returns>
         public State fromString(string s)
         {
-
-
             int i = 0;
 
             State state = new State();

@@ -15,6 +15,7 @@ namespace hashcode._2022.Solvers
         protected override void DoSolve(Solution res)
         {
             //TODO
+            //update res in place
         }
     }
 }
