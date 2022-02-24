@@ -49,12 +49,12 @@ namespace hashcode._2022.Solvers
                         {
                             scoreMax = scoreWithCandidate;
                             winner = candidate;
-                            skillLevel = candidate._contrib.Skills[role.Key];
-                        } else if(scoreMax == scoreWithCandidate && skillLevel > candidate._contrib.Skills[role.Key]) // todo only less skilled candidate
+                            skillLevel = candidate._contrib.Skills[role.Name];
+                        } else if(scoreMax == scoreWithCandidate && skillLevel > candidate._contrib.Skills[role.Name]) // todo only less skilled candidate
                         {
                             scoreMax = scoreWithCandidate;
                             winner = candidate;
-                            skillLevel = candidate._contrib.Skills[role.Key];
+                            skillLevel = candidate._contrib.Skills[role.Name];
                         }
                     }
                     
