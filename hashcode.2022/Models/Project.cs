@@ -13,6 +13,11 @@ namespace hashcode._2022.Models
         public int Score { get; set; }
         public int BestBefore { get; set; }
 
-        public Dictionary<string,int> RequiredRoles { get; set; }
+        public Dictionary<string,int> RequiredRoles { get; init; }
+
+        public Project()
+        {
+            RequiredRoles = new Dictionary<string, int>();
+        }
     }
 }
