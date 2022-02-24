@@ -13,7 +13,7 @@ namespace hashcode._2022.Models
             Projects = projects;
         }
 
-        public List<Project> Projects { get; }
+        private List<Project> Projects { get; }
 
         public Project GetNext()
         {
@@ -22,5 +22,9 @@ namespace hashcode._2022.Models
                 Projects.Remove(res);
             return res;
         }
+
+        public void AddProject(Project project) => Projects.Add(project);
+
+        public int NbProjects => Projects.Count;
     }
 }

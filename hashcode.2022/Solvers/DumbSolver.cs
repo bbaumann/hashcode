@@ -18,8 +18,10 @@ namespace hashcode._2022.Solvers
         {
             var proj = res.ProjectRepository.GetNext();
 
+            int nbFailsInARow = 0;
+
             //go back to project available
-            while (proj != null)
+            while (proj != null && nbFailsInARow < res.ProjectRepository.NbProjects)
             {
                 var projectDone = new ProjectDone()
                 {
@@ -48,10 +50,14 @@ namespace hashcode._2022.Solvers
 
                 if (!canDoProject)
                 {
+                    nbFailsInARow++;
+                    res.ProjectRepository.AddProject(proj);
                     //TODO choix du projet
                     proj = res.ProjectRepository.GetNext();
                     continue;
                 }
+
+                nbFailsInARow = 0;
 
                 res.DoProject(projectDone);
 
